@@ -202,18 +202,18 @@ var adSpots = {
             bids: [appnexus(12237270), openx("538768368"), ix([300, 250], 200250), rubicon("743316")]
         }
     },
-    // mobileSticky: {
-    //     refreshable: false,
-    //     min: 0,
-    //     max: 767,
-    //     gam: {
-    //         unit: '/5500201/sc_mobile_adhesion_320x100',
-    //         sizes: [
-    //             [1, 1],
-    //         ],
-    //         code: 'banner-bottom'
-    //     }
-    // },
+    mobileSticky: {
+        refreshable: false,
+        min: 0,
+        max: 767,
+        gam: {
+            unit: '/5500201/sc_mobile_adhesion_320x100',
+            sizes: [
+                [1, 1],
+            ],
+            code: 'banner-bottom'
+        }
+    },
     billboard: {
         min: 768,
         max: 9999,
@@ -448,9 +448,9 @@ googletag.cmd.push(function () {
     // googletag.pubads().enableSingleRequest();
     googletag.pubads().collapseEmptyDivs();
     googletag.enableServices();
-    // googletag.pubads().addEventListener("slotRenderEnded", function(e) {
-    //     e.slot === gamSlots['banner-bottom'] && (document.getElementById("banner-bottom").width = window.innerWidth)
-    // })
+    googletag.pubads().addEventListener("slotRenderEnded", function(e) {
+        e.slot === gamSlots['banner-bottom'] && (document.getElementById("banner-bottom").width = window.innerWidth)
+    })
 });
 
 //set APS config
@@ -546,7 +546,7 @@ function executeBidding(adSpots) {
 
 var intFired = false;
 window.addEventListener('scroll', () => {
-    if (!intFired && (window.pageYOffset / document.body.offsetHeight) >= (1/5) && window.innerWidth > 768) {
+    if (!intFired && (window.pageYOffset / document.body.offsetHeight) >= (1/5) && window.innerWidth >= 768) {
         fireInterstitial();
     }
 })
