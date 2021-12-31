@@ -1,7 +1,7 @@
 var currentURL = window.location.href,
     urlPath = window.location.pathname,
     author = "";
-if ("complete" === document.readyState || "loaded" === document.readyState)
+document.addEventListener('DOMContentLoaded', function(e) {
     if (window.location.href.indexOf("sermons") > -1) {
         var re = /(?=by )(.*)(?= on)/g,
             str = document.getElementsByClassName("subtitle")[0].innerText,
@@ -13,7 +13,8 @@ if ("complete" === document.readyState || "loaded" === document.readyState)
         str = document.getElementsByClassName("links")[0].innerText,
         newAuthor = str.match(re);
     author = newAuthor.toString()
-}
+    }
+});
 
 function appnexus(e) {
     return {
@@ -546,7 +547,7 @@ function executeBidding(adSpots) {
 
 var intFired = false;
 window.addEventListener('scroll', () => {
-    if (!intFired && (window.pageYOffset / document.body.offsetHeight) >= (1/5) && window.innerWidth >= 768) {
+    if (!intFired && (window.pageYOffset / document.body.offsetHeight) >= (1/5) && window.innerWidth > 768) {
         fireInterstitial();
     }
 })
