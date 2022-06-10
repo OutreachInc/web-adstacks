@@ -1,25 +1,8 @@
 var googletag = googletag || {};
 googletag.cmd = googletag.cmd || [];
 
-var clCategory = '';
-if (window.location.href.indexOf("/pastors") > -1) {
-    clCategory = 'pastors';
-}
-else if (window.location.href.indexOf("/worship") > -1) {
-    clCategory = 'worship';
-}
-else if (window.location.href.indexOf("/youth") > -1) {
-    clCategory = 'youth';
-}
-else if (window.location.href.indexOf("/outreach-missions") > -1) {
-    clCategory = 'outreach';
-}
-else if (window.location.href.indexOf("/smallgroups") > -1) {
-    clCategory = 'smallgroups';
-}
-else if (window.location.href.indexOf("/children") > -1) {
-    clCategory = 'childrens';
-}
+var clCategory = new URL(location.href).pathname.split("/")[1];
+if(clCategory == 'outreach-missions') clCategory = 'outreach';
 
 var adSpots = {
     inline_mobile1: {
