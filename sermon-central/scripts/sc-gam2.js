@@ -14,6 +14,15 @@ document.addEventListener('DOMContentLoaded', function(e) {
         newAuthor = str.match(re);
     author = newAuthor.toString()
     }
+
+    var mobileInline = 0;
+    Array.from(document.getElementsByClassName('mobile-ad-300x250')).forEach(adDiv => {
+        mobileInline++;
+        adDiv.id = `mobile-inline-${mobileInline}`;
+        adDiv.dataset.gamUnit = mobileInline <= 4 ?`/5500201/sc_mobile_inline_mobile${mobileInline}` : '/5500201/sc_mobile_btf_mobile';
+
+        googletag.display('right-rail');
+    })
 });
 
 function appnexus(e) {
@@ -77,8 +86,10 @@ function rubicon(e) {
         }
     }
 }
-var adSpots = {
-    inline_mobile1: {
+
+var adSpots = [
+    {
+        code: 'inline-mobile1',
         min: 0,
         max: 767,
         gam: {
@@ -107,7 +118,8 @@ var adSpots = {
             ]
         }
     },
-    inline_mobile2: {
+    {
+        code: 'inline-mobile2',
         min: 0,
         max: 767,
         gam: {
@@ -130,8 +142,8 @@ var adSpots = {
             },
             bids: [appnexus(12237267), ix([300, 250], 200252), rubicon("743320")]
         }
-    },
-    inline_mobile3: {
+    },{
+        code: 'inline-mobile3',
         min: 0,
         max: 767,
         gam: {
@@ -154,8 +166,8 @@ var adSpots = {
             },
             bids: [appnexus(12237268), ix([300, 250], 200253), rubicon("743322")]
         }
-    },
-    inline_mobile4: {
+    }, {
+        code: 'inline-mobile4',
         min: 0,
         max: 767,
         gam: {
@@ -178,8 +190,8 @@ var adSpots = {
             },
             bids: [appnexus(12237269), ix([300, 250], 200254), rubicon("743324")]
         }
-    },
-    btfMobile: {
+    },{
+        code: 'btf-mobile',
         min: 0,
         max: 767,
         gam: {
@@ -202,8 +214,8 @@ var adSpots = {
             },
             bids: [appnexus(12237270), openx("538768368"), ix([300, 250], 200250), rubicon("743316")]
         }
-    },
-    mobileSticky: {
+    }, {
+        code: 'banner-bottom',
         refreshable: false,
         min: 0,
         max: 767,
@@ -214,8 +226,8 @@ var adSpots = {
             ],
             code: 'banner-bottom'
         }
-    },
-    billboard: {
+    }, {
+        code: 'desktop-billboard',
         min: 768,
         max: 9999,
         gam: {
@@ -244,8 +256,8 @@ var adSpots = {
         //     ]
 
         // }
-    },
-    desktop_leaderboard: {
+    },{
+        code: 'desktop-728x90',
         min: 768,
         max: 9999,
         gam: {
@@ -274,8 +286,8 @@ var adSpots = {
         //     },
         //     bids: [appnexus(12237263), openx("538768367"), ix([300, 600], 200249), rubicon("743310")]
         // }
-    },
-    right_rail: {
+    }, {
+        code: 'right-rail',
         min: 768,
         max: 9999,
         gam: {
@@ -305,8 +317,8 @@ var adSpots = {
             },
             bids: [appnexus(12237263), openx("538768367"), ix([300, 600], 200249), rubicon("743310")]
         }
-    },
-    desktop_showcase: {
+    },{
+        code: 'desktop-showcase',
         min: 768,
         max: 9999,
         gam: {
@@ -333,8 +345,8 @@ var adSpots = {
             },
             bids: [appnexus(12237264), ix([300, 250], 200258), rubicon("743306")]
         }
-    },
-    right_rail_sticky: {
+    },{
+        code: 'right-rail-sticky',
         min: 768,
         max: 9999,
         gam: {
@@ -367,8 +379,8 @@ var adSpots = {
             },
             bids: [appnexus(12237265), ix([300, 600], 200257), rubicon("743312")]
         }
-    },
-    interstitial: {
+    },{
+        code: 'interstitial',
         refreshable: false,
         min: 768,
         max: 9999,
@@ -377,8 +389,8 @@ var adSpots = {
             sizes: [[1, 1]],
             code: 'interstitial'
         },
-    },
-    wallpaper_left: {
+    },{
+        code: 'wallpaper-left',
         min: 1200,
         max: 9999,
         gam: {
@@ -386,8 +398,8 @@ var adSpots = {
             sizes: [[200, 1200]],
             code: 'wallpaper-left'
         },
-    },
-    wallpaper_right: {
+    }, {
+        code: 'wallpaper-right',
         min: 1200,
         max: 9999,
         gam: {
@@ -396,7 +408,7 @@ var adSpots = {
             code: 'wallpaper-right'
         },
     },
-};
+];
 
 ! function (a9, a, p, s, t, A, g) {
     if (a[a9]) return;
@@ -438,7 +450,7 @@ pbjs.que.push(function () {
 
 var gamSlots = {};
 googletag.cmd.push(function () {
-    Object.entries(adSpots).forEach(([key, adSpot]) => {
+    adSpots.forEach(adSpot => {
         if (adSpot.gam !== undefined && adSpot.min <= window.innerWidth && adSpot.max >= window.innerWidth) {
             gamSlots[adSpot.gam.code] = googletag.defineSlot(adSpot.gam.unit, adSpot.gam.sizes, adSpot.gam.code).addService(googletag.pubads());
         }
@@ -570,3 +582,50 @@ eventer(messageEvent, function(e) {
         }, 5e3)
     }, 5e3)
 }, !1);
+
+function refreshSlots(refreshSlots){
+    googletag.cmd.push(function () {
+        googletag.pubads().refresh(refreshSlots);
+    });
+}
+
+let adsStarted = false;
+function startAds(){
+    if (!adsStarted) {
+        adsStarted = true;
+    } else {
+        return false
+    }
+
+    var initialAds = [];
+    adSpots.forEach(adSpot => {
+        if (adSpot.min <= window.innerWidth && adSpot.max >= window.innerWidth && adSpot.init !== false) {
+            if (adSpot.refreshable !== false) {
+                adRefresh(adSpot);
+            }
+            initialAds.push(gamSlots[adSpot.gam.code]);
+        }
+    });
+
+    refreshSlots(initialAds);
+}
+
+function adRefresh(adSpot) {
+    setInterval(() => {
+        var ad = document.getElementById(adSpot.gam.code).getBoundingClientRect();
+        if (
+            !document.hidden
+            && adSpot.refreshable !== false
+            && ad.bottom >= 0
+            && ad.right >= 0
+            && ad.top <= (window.innerHeight || document.documentElement.clientHeight)
+            && ad.left <= (window.innerWidth || document.documentElement.clientWidth)
+        ) {
+            refreshSlots([gamSlots[adSpot.gam.code]]);
+        }
+    }, 6e4) // 60 seconds
+}
+
+window.addEventListener('load', () => {
+    startAds();
+})

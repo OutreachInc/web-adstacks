@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Faithit Ad Units</title>
+    <script src="https://www.googletagservices.com/tag/js/gpt.js" ></script>
+    <script src="/faithit/scripts/prebid.min.js" defer></script>
+    <script src="/faithit/scripts/gam-head.js" ></script>
+</head>
+<body>
+    <h1>Faithit Ad Stack</h1>
+    <h2>Desktop</h2>
+    <div>
+        <h3>Desktop Billboard</h3>
+        <div id="desktop-billboard" class="horizontal-ad-970x250">
+            <script>googletag.cmd.push(function () { googletag.display('desktop-billboard'); });</script>
+        </div>
+    </div>
+    <div>
+        <h3>Desktop Showcase</h3>
+        <div id="desktop-showcase" class="vertical-ad-300x250">
+            <script>googletag.cmd.push(function () { googletag.display('desktop-showcase'); });</script>
+        </div>
+    </div>
+    <div>
+        <h3>Desktop Right Rail</h3>
+        <div id="right-rail" class="vertical-ad-300x250">
+            <script>googletag.cmd.push(function () { googletag.display('right-rail'); });</script>
+        </div>
+    </div>
+    <div>
+        <h3>Desktop Right Rail Sticky</h3>
+        <div id="right-rail-sticky" class="lazy">
+            <script>googletag.cmd.push(function () { googletag.display('right-rail-sticky'); });</script>
+        </div>
+    </div>
+    <div>
+        <h3>Interstitial</h3>
+        <div id="interstitial">
+            <script>
+                googletag.cmd.push(function () { googletag.display('interstitial'); });
+            </script>
+        </div>
+    </div>
+    <div>
+        <h3>BTF Left</h3>
+        <div id="btf-left-300x250">
+            <script>
+                googletag.cmd.push(function () { googletag.display('btf-left-300x250'); });
+            </script>
+        </div>
+    </div>
+    <div>
+        <h3>BTF Right</h3>
+        <div id="btf-right-300x250">
+            <script>
+                googletag.cmd.push(function () { googletag.display('btf-right-300x250'); });
+            </script>
+        </div>
+    </div>
+    <hr />
+    <h2>Mobile</h2>
+    <div>
+        <h3>Inline Mobile 1</h3>
+        <div id="inline-mobile1" class="mobile-ad-300x250 lazy">
+            <script>
+                googletag.cmd.push(function () { googletag.display('inline-mobile1'); });
+            </script>
+        </div>
+    </div>
+    <div>
+        <h3>Inline Mobile 2</h3>
+        <div id="inline-mobile2" class="mobile-ad-300x250 lazy">
+            <script>
+                googletag.cmd.push(function () { googletag.display('inline-mobile2'); });
+            </script>
+        </div>
+    </div>
+    <div>
+        <h3>Inline Mobile 3</h3>
+        <div id="inline-mobile3" class="mobile-ad-300x250">
+            <script>
+                googletag.cmd.push(function () { googletag.display('inline-mobile3'); });
+            </script>
+        </div>
+    </div>
+    <div>
+        <h3>Inline Mobile 3 (2)</h3>
+        <div id="inline-mobile3" class="mobile-ad-300x250">
+            <script>
+                googletag.cmd.push(function () { googletag.display('inline-mobile3'); });
+            </script>
+        </div>
+    </div>
+    <div>
+        <h3>Inline Mobile 4</h3>
+        <div id="inline-mobile4" class="mobile-ad-300x250">
+            <script>
+                googletag.cmd.push(function () { googletag.display('inline-mobile4'); });
+            </script>
+        </div>
+    </div>
+    <div>
+        <h3>BTF Mobile</h3>
+        <div id="btf-mobile" class="mobile-ad-300x250">
+            <script>
+                googletag.cmd.push(function () { googletag.display('btf-mobile'); });
+            </script>
+        </div>
+    </div>
+    <div>
+        <h3>Mobile Adhesion</h3>
+        <div id="banner-bottom" class="">
+            <script>
+                googletag.cmd.push(function () { googletag.display('banner-bottom'); });
+            </script>
+        </div>
+        <div data-container-ad-unit-id="mobile-adhesion" id="mobile-adhesion"></div>
+    </div>
+
+    <!-- <style type="text/css">
+        #mobile-adhesion{
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            z-index: 999;
+        }
+        #footer_stickyAd {
+            margin: 0 auto 20px;
+            width: 320px;
+            height: 100px;
+            opacity: 1;
+            border-radius: 6px;
+            box-shadow: 0 16px 32px rgba(0, 0, 0, 0.6);
+            font-family: Helvetica, Arial;
+        }
+
+        #footer_stickyAd .content{
+            border-radius:6px;
+            background: #202528;
+            width: 100%;
+            height: 100px;
+            position: relative;
+            float: left;
+            padding: 0;
+        }
+
+        #footer_stickyAd img{
+            border-radius:6px;
+            width: 320px;
+            height: 100px;
+            float: left;
+        }
+
+        #hideMe{
+            display: block;
+            text-align: center;
+            text-decoration: none;
+            position: absolute;
+            top: -9px;
+            right: -10px;
+            z-index: 2;
+            color: #fff;
+            font-weight: 100;
+            -webkit-transform: scaleY(0.9);
+            transform: scaleY(0.9);
+            background: rgba(0,0,0,.75);
+            border-radius: 40px;
+            width: 20px;
+            height: 23px;
+        }
+    </style> -->
+
+    <!-- <div id="mobile-adhesion">
+        <div id="footer_stickyAd">
+            <div class="content">
+                <a href="javascript:return false" title="Hide This" id="hideMe" onClick="document.getElementById('footer_stickyAd').style.display = 'none';">x</a>
+                <a href="%%CLICK_URL_UNESC%%[%Link%]?utm_source=[%UTMSource%]&utm_medium=[%UTMMedium%]&utm_campaign=[%UTMCampaign%]&utm_term=[%UTMTerm%]&utm_content=[%UTMContent%]"
+                    target="_blank">
+                    <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.bannereasy.com%2Fassets%2Ftemplates%2F3%2Fecommerce-sales-banner_2582.png&f=1&nofb=1" />
+                </a>
+            </div>
+        </div>
+    </div> -->
+
+</body>
+</html>
