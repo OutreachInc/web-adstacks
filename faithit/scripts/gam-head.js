@@ -166,7 +166,7 @@ function sovrn(value) {
 var adSpots = {
     inline_mobile1: {
         min: 0,
-        max: 959,
+        max: 767,
         gam: {
             unit: '/5500201/FI_Mobile_Inline_Mobile',
             sizes: [300, 250],
@@ -210,7 +210,7 @@ var adSpots = {
     },
     inline_mobile2: {
         min: 0,
-        max: 959,
+        max: 767,
         gam: {
             unit: '/5500201/FI_Mobile_Inline_Mobile2',
             sizes: [300, 250],
@@ -248,7 +248,7 @@ var adSpots = {
     },
     inline_mobile3: {
         min: 0,
-        max: 959,
+        max: 767,
         gam: {
             unit: '/5500201/FI_Mobile_Inline_Mobile3',
             sizes: [300, 250],
@@ -286,7 +286,7 @@ var adSpots = {
     },
     inline_mobile4: {
         min: 0,
-        max: 959,
+        max: 767,
         gam: {
             unit: '/5500201/FI_Mobile_Inline_Mobile4',
             sizes: [300, 250],
@@ -324,7 +324,7 @@ var adSpots = {
     },
     btfMobile: {
         min: 0,
-        max: 767,
+        max: 934,
         gam: {
             unit: '/5500201/FI_Mobile_BTF_Mobile',
             sizes: [300, 250],
@@ -420,7 +420,7 @@ var adSpots = {
         }
     },
     showcase: {
-        min: 960,
+        min: 768,
         max: 9999,
         gam: {
             unit: '/5500201/FI_Desktop_Showcase_300x250',
@@ -453,7 +453,7 @@ var adSpots = {
         }
     },
     right_rail: {
-        min: 960,
+        min: 768,
         max: 9999,
         gam: {
             unit: '/5500201/FI_Desktop_Right_Rail',
@@ -497,7 +497,7 @@ var adSpots = {
         }
     },
     btf_left: {
-        min: 768,
+        min: 935,
         max: 9999,
         gam: {
             unit: '/5500201/FI_Desktop_BTF_Left_300x250',
@@ -531,7 +531,7 @@ var adSpots = {
         }
     },
     btf_right: {
-        min: 768,
+        min: 935,
         max: 9999,
         gam: {
             unit: '/5500201/FI_Desktop_BTF_Right_300x250',
