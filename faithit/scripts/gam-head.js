@@ -87,11 +87,10 @@ function cleanmedianet(value) {
     };
 }
 
-function ix(adSize, site) {
+function ix(site) {
     return {
         bidder: 'ix',
         params: {
-            size: adSize,
             siteId: site
         }
     };
@@ -195,9 +194,7 @@ var adSpots = {
                 appnexusVideo(11719216),
                 // audienceNetwork('158696408012994_158714064677895'),
                 cleanmedianet('1999'),
-                ix([
-                    [300, 250]
-                ], '200222'),
+                ix('200222'),
                 openx('538728573'),
                 pulsepoint('300X250', 576247),
                 pulsepointOutstream('1X1', 603721, 640, 480),
@@ -232,9 +229,7 @@ var adSpots = {
             bids: [
                 // audienceNetwork('158696408012994_158714798011155'),
                 amx(),
-                ix([
-                    [300, 250]
-                ], '200223'),
+                ix('200223'),
                 rubicon('685028'),
                 openx('538787625'),
                 appnexus(11056566),
@@ -270,9 +265,7 @@ var adSpots = {
             bids: [
                 // audienceNetwork('158696408012994_158714924677809'),
                 amx(),
-                ix([
-                    [300, 250]
-                ], '200225'),
+                ix('200225'),
                 rubicon('685032'),
                 openx('538787626'),
                 appnexus(11056567),
@@ -308,9 +301,7 @@ var adSpots = {
             bids: [
                 // audienceNetwork('158696408012994_158715008011134'),
                 amx(),
-                ix([
-                    [300, 250]
-                ], '200226'),
+                ix('200226'),
                 rubicon('685034'),
                 openx('538787628'),
                 appnexus(11056568),
@@ -346,9 +337,7 @@ var adSpots = {
             bids: [
                 // audienceNetwork('158696408012994_158715018011133'),
                 amx(),
-                ix([
-                    [300, 250]
-                ], '200221'),
+                ix('200221'),
                 rubicon('685016'),
                 openx('538728572'),
                 appnexus(10008065),
@@ -442,7 +431,7 @@ var adSpots = {
             },
             bids: [
                 amx(),
-                ix([300, 250], '217110'),
+                ix('217110'),
                 rubicon('710288'),
                 appnexus(11994937),
                 sovrn('590071'),
@@ -485,7 +474,7 @@ var adSpots = {
             },
             bids: [
                 amx(),
-                ix([300, 600], '200220'),
+                ix('200220'),
                 rubicon('685014'),
                 openx('538699942'),
                 appnexus(10008055),
@@ -519,7 +508,7 @@ var adSpots = {
             },
             bids: [
                 amx(),
-                ix([300, 250], '200218'),
+                ix('200218'),
                 rubicon('685010'),
                 openx('538699940'),
                 appnexus(10008050),
@@ -553,7 +542,7 @@ var adSpots = {
             },
             bids: [
                 amx(),
-                ix([300, 250], '200219'),
+                ix('200219'),
                 rubicon('685012'),
                 openx('538699941'),
                 appnexus(10008037),
