@@ -5,14 +5,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SermonCentral Ad Units</title>
-    <script>
-        var googletag = googletag || {};
-        googletag.cmd = googletag.cmd || [];
-    </script>
+
     <script src="https://www.googletagservices.com/tag/js/gpt.js" ></script>
+    <script src="/sermon-central/scripts/gam-head.js" ></script>
     <script src="/sermon-central/scripts/prebid.min.js" defer></script>
-    <script src="/sermon-central/scripts/sc-gam2.js" ></script>
-    <script src="/sermon-central/scripts/gam-footer.min.js" defer=""></script>
 </head>
 <body>
     <h1>SermonCentral Ad Stack</h1>
@@ -48,6 +44,7 @@
                 googletag.cmd.push(function () { googletag.display('interstitial'); });
             </script>
         </div>
+        <div data-container-ad-unit-id="sc-interstitial" id="sc-interstitial"></div>
     </div>
     <hr />
     <h2>Mobile</h2>

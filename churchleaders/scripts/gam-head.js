@@ -1,9 +1,12 @@
+//#region Global Variables
 var googletag = googletag || {};
 googletag.cmd = googletag.cmd || [];
 
 var clCategory = new URL(location.href).pathname.split("/")[1];
 if(clCategory == 'outreach-missions') clCategory = 'outreach';
+//#endregion
 
+//#region AdSpots
 var adSpots = {
     inline_mobile1: {
         min: 0,
@@ -220,6 +223,8 @@ var adSpots = {
         },
     }
 }
+//#endregion
+
 var gamSlots = {};
 googletag.cmd.push(function () {
     Object.entries(adSpots).forEach(([key, adSpot]) => {

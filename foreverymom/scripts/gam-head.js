@@ -1,9 +1,12 @@
+//#region Global Variables
 var advid = advid || null;
 var googletag = googletag || {};
 googletag.cmd = googletag.cmd || [];
 var pbjs = pbjs || {};
 pbjs.que = pbjs.que || [];
+//#endregion
 
+//#region Ad Functions
 ! function (a9, a, p, s, t, A, g) {
     if (a[a9]) return;
 
@@ -30,74 +33,20 @@ pbjs.que = pbjs.que || [];
     g.parentNode.insertBefore(A, g)
 }("apstag", window, document, "script", "//c.amazon-adsystem.com/aax2/apstag.js");
 
-var geoData = {};
+let geoData = {};
 
 fetch("https://geolocation.outreach.com/city").then(resp => resp.json())
     .then(data => {
         geoData = data;
-        if (geoData.countryName == "United Kingdom" || geoData.countryName == "Australia" || geoData.countryName == "Canada" || geoData.countryName == "South Africa") {
-            googletag.cmd.push(function () { googletag.display('just-premium') })
-        }
     })
 
-function appnexus(value) {
-    return {
-        bidder: 'appnexusAst',
-        params: {
-            placementId: value
-        }
-    };
-}
-
-function appnexusVideo(value) {
-    return {
-        bidder: 'appnexusAst',
-        params: {
-            placementId: value,
-            video: {
-                playback_method: ['auto_play_sound_off']
-            }
-        }
-    };
-}
-
-// function audienceNetwork(value) {
-//     return {
-//         bidder: 'audienceNetwork',
-//         params: {
-//             placementId: value,
-//             format: 'fullwidth'
-//         }
-//     };
-// }
-
-function cleanmedianet(value) {
-    return {
-        bidder: 'cleanmedianet',
-        params: {
-            supplyPartnerId: value
-        }
-    };
-}
-
-function ix(adSize, site) {
+function ix(site) {
     return {
         bidder: 'ix',
         params: {
-            size: adSize,
             siteId: site
         }
     };
-}
-
-function oneDisplay(value) {
-    return {
-        bidder: 'aol',
-        params: {
-            network: '10961.1',
-            placement: value
-        }
-    }; // AOL Desktop
 }
 
 function openx(value) {
@@ -118,31 +67,8 @@ function rubicon(zone) {
             accountId: '16724',
             siteId: '145002',
             zoneId: zone,
-            latLong: [geoData.latitude, geoData.longitude]
-        }
-    }
-}
-
-function pulsepoint(size, tag) {
-    return {
-        bidder: 'pulsepoint',
-        params: {
-            cf: size,
-            cp: 561169,
-            ct: tag
-        }
-    }
-}
-
-function pulsepointOutstream(size, tag, cw, ch) {
-    return {
-        bidder: 'pulsepoint',
-        params: {
-            cf: size,
-            cp: 561169,
-            ct: tag,
-            cw,
-            ch
+            latLong: [geoData.latitude, geoData.longitude],
+            floor: 0.01
         }
     }
 }
@@ -151,26 +77,32 @@ function sovrn(value) {
     return {
         bidder: 'sovrn',
         params: {
-            tagid: value
+            tagid: value,
+            bidfloor: '0.01'
         }
     };
 }
 
-var adSpots = {
+function convertGamToA9(gamSlot) {
+    return {
+        slotID: gamSlot.code,
+        slotName: gamSlot.unit,
+        sizes: gamSlot.sizes
+    }
+}
+//#endregion
+
+//#region AdSpots
+let adSpots = {
     inline_mobile1: {
         min: 0,
         max: 959,
         gam: {
             unit: '/5500201/FEM_Mobile_Inline_Mobile1',
-            sizes: [300, 250],
+            sizes: [[300, 250]],
             code: 'inline-mobile1'
         },
-        a9: {
-            slotID: 'inline-mobile1',
-            sizes: [
-                [300, 250]
-            ]
-        },
+        a9: true,
         prebid: {
             code: 'inline-mobile1',
             mediaTypes: {
@@ -183,18 +115,10 @@ var adSpots = {
                 },
             },
             bids: [
-                // audienceNetwork('1843134112669898_1843166106000032'),
-                ix([300, 250], '200231'),
+                ix('200231'),
                 rubicon('685062'),
                 openx('538748829'),
-                appnexus(10713946),
-                appnexusVideo(10929705),
                 sovrn('437947'),
-                pulsepoint('300X250', 575209),
-                pulsepointOutstream('1X1', 603737, 640, 480),
-                // oneDisplay('4488080'),
-                // cleanmedianet('1999'),
-                // sonobi('22f4da52d8d369547c64')
             ]
         }
     },
@@ -203,15 +127,10 @@ var adSpots = {
         max: 959,
         gam: {
             unit: '/5500201/FEM_Mobile_Inline_Mobile2',
-            sizes: [300, 250],
+            sizes: [[300, 250]],
             code: 'inline-mobile2'
         },
-        a9: {
-            slotID: 'inline-mobile2',
-            sizes: [
-                [300, 250]
-            ]
-        },
+        a9: true,
         prebid: {
             code: 'inline-mobile2',
             mediaTypes: {
@@ -220,16 +139,10 @@ var adSpots = {
                 },
             },
             bids: [
-                // audienceNetwork('1843134112669898_1843166009333375'),
-                ix([300, 250], '200232'),
+                ix('200232'),
                 rubicon('685064'),
                 openx('538787629'),
-                appnexus(11058275),
-                pulsepoint('300X250', 575210),
-                // oneDisplay('4514169'),
                 sovrn('450706'),
-                // cleanmedianet('1999'),
-                // sonobi('5eb9a9c21cfed59753a5'),
             ]
         }
     },
@@ -238,15 +151,10 @@ var adSpots = {
         max: 959,
         gam: {
             unit: '/5500201/FEM_Mobile_Inline_Mobile3',
-            sizes: [300, 250],
+            sizes: [[300, 250]],
             code: 'inline-mobile3'
         },
-        a9: {
-            slotID: 'inline-mobile3',
-            sizes: [
-                [300, 250]
-            ]
-        },
+        a9: true,
         prebid: {
             code: 'inline-mobile3',
             mediaTypes: {
@@ -255,16 +163,10 @@ var adSpots = {
                 },
             },
             bids: [
-                // audienceNetwork('1843134112669898_1843165939333382'),
-                ix([300, 250], '200233'),
+                ix('200233'),
                 rubicon('685074'),
                 openx('538787630'),
-                appnexus(11058276),
-                pulsepoint('300X250', 575211),
-                // oneDisplay('4514168'),
                 sovrn('450707'),
-                // cleanmedianet('1999'),
-                // sonobi('b685029d3cc2174f62a7'),
             ]
         }
     },
@@ -273,15 +175,10 @@ var adSpots = {
         max: 959,
         gam: {
             unit: '/5500201/FEM_Mobile_Inline_Mobile4',
-            sizes: [300, 250],
+            sizes: [[300, 250]],
             code: 'inline-mobile4'
         },
-        a9: {
-            slotID: 'inline-mobile4',
-            sizes: [
-                [300, 250]
-            ]
-        },
+        a9: true,
         prebid: {
             code: 'inline-mobile4',
             mediaTypes: {
@@ -290,16 +187,10 @@ var adSpots = {
                 },
             },
             bids: [
-                // audienceNetwork('1843134112669898_1843165866000056'),
-                ix([300, 250], '200236'),
+                ix('200236'),
                 rubicon('685076'),
                 openx('538787631'),
-                appnexus(11058277),
-                // oneDisplay('4514167'),
-                pulsepoint('300X250', 575212),
                 sovrn('450708'),
-                // cleanmedianet('1999'),
-                // sonobi('485b762e9490305cd6f1'),
             ]
         }
     },
@@ -308,15 +199,10 @@ var adSpots = {
         max: 959,
         gam: {
             unit: '/5500201/FEM_Mobile_BTF_Mobile',
-            sizes: [300, 250],
+            sizes: [[300, 250]],
             code: 'btf-mobile'
         },
-        a9: {
-            slotID: 'btf-mobile',
-            sizes: [
-                [300, 250]
-            ]
-        },
+        a9: true,
         prebid: {
             code: 'btf-mobile',
             mediaTypes: {
@@ -325,37 +211,13 @@ var adSpots = {
                 },
             },
             bids: [
-                // audienceNetwork('1843134112669898_1843165836000059'),
-                ix([300, 250], '200230'),
+                ix('200230'),
                 rubicon('685058'),
                 openx('538748827'),
-                appnexus(10713945),
-                // oneDisplay('4488098'),
-                pulsepoint('300X250', 575208),
                 sovrn('437922'),
-                // cleanmedianet('1999'),
-                // sonobi('20b2cb27efc49afcdea0')
             ]
         }
     },
-    connatix: {
-        min: 0,
-        max: 767,
-        gam: {
-            unit: '/5500201/FEM_Mobile_Connatix',
-            sizes: [1, 1],
-            code: 'connatix-carousel'
-        }
-    },
-    // justPremium: {
-    //     min: 0,
-    //     max: 9999,
-    //     gam: {
-    //         unit: '/5500201/FEM_JustPremium',
-    //         sizes: [1, 1],
-    //         code: 'just-premium'
-    //     }
-    // },
     mobileSticky: {
         refreshable: false,
         min: 0,
@@ -374,30 +236,24 @@ var adSpots = {
         max: 9999,
         gam: {
             unit: '/5500201/fem_desktop_billboard_970x250',
-            sizes: [970, 250],
+            sizes: [[970, 250]],
             code: 'desktop-billboard'
         },
-        // a9: {
-        //     slotID: 'right-rail',
-        //     sizes: [
-        //         [970, 250],
-        //     ]
-        // },
-        // prebid: {
-        //     code: 'desktop-billboard',
-        //     mediaTypes: {
-        //         banner: {
-        //             sizes: [970, 250]
-        //         },
-        //     },
-        //     bids: [
-        //         // cleanmedianet('1999'),
-        //         rubicon('1083242'),
-        //         sovrn('611380'),
-        //         appnexus(15976831),
-        //     ]
+        a9: true,
+        prebid: {
+            code: 'desktop-billboard',
+            mediaTypes: {
+                banner: {
+                    sizes: [970, 250]
+                },
+            },
+            bids: [
+                rubicon('1083242'),
+                sovrn('611380'),
+                ix(),
+            ]
 
-        // }
+        }
     },
     right_rail: {
         min: 960,
@@ -411,14 +267,7 @@ var adSpots = {
             ],
             code: 'right-rail'
         },
-        a9: {
-            slotID: 'right-rail',
-            sizes: [
-                [300, 600],
-                [160, 600],
-                [300, 250]
-            ]
-        },
+        a9: true,
         prebid: {
             code: 'right-rail',
             mediaTypes: {
@@ -431,14 +280,10 @@ var adSpots = {
                 },
             },
             bids: [
-                ix([300, 600], '200229'),
+                ix('200229'),
                 rubicon('685052'),
                 openx('538748819'),
-                appnexus(10067208),
                 sovrn('590071'),
-                pulsepoint('300X600', 575207),
-                // cleanmedianet('1999'),
-                // sonobi('bf4255ad1bb79314389c'),
             ]
         }
     },
@@ -464,7 +309,7 @@ var adSpots = {
     //             },
     //         },
     //         bids: [
-    //             ix([300, 250], '200227'),
+    //             ix('200227'),
     //             rubicon('685046'),
     //             openx('538748815'),
     //             appnexus(10067209),
@@ -511,28 +356,25 @@ var adSpots = {
     //         ]
     //     }
     // },
-    desktop_outstream: {
-        min: 960,
-        max: 9999,
-        gam: {
-            unit: '/5500201/FEM_Desktop_Outstream',
-            sizes: [1, 1],
-            code: 'desktop-outstream'
-        },
-        prebid: {
-            code: 'desktop-outstream',
-            mediaTypes: {
-                video: {
-                    context: 'outstream',
-                    playerSize: [[640, 480]]
-                },
-            },
-            bids: [
-                appnexusVideo(10713951),
-                pulsepointOutstream('1X1', 603735, 640, 480)
-            ]
-        }
-    },
+    // desktop_outstream: {
+    //     min: 960,
+    //     max: 9999,
+    //     gam: {
+    //         unit: '/5500201/FEM_Desktop_Outstream',
+    //         sizes: [1, 1],
+    //         code: 'desktop-outstream'
+    //     },
+    //     prebid: {
+    //         code: 'desktop-outstream',
+    //         mediaTypes: {
+    //             video: {
+    //                 context: 'outstream',
+    //                 playerSize: [[640, 480]]
+    //             },
+    //         },
+    //         bids: []
+    //     }
+    // },
     interstitial: {
         init: false,
         refreshable: false,
@@ -564,22 +406,16 @@ var adSpots = {
         },
     },
 };
+//#endregion
 
+//#region Set Ad Queue
 pbjs.que.push(function () {
     pbjs.setConfig({
         priceGranularity: "dense",
     });
-    // pbjs.enableAnalytics([{
-    //     provider: 'pubwise',
-    //     options: {
-    //         site: 'eb3c9003-e9b6-4ecb-83d7-1198c365ecb9',
-    //         endpoint:'https://api.pubwise.io/api/v4/event/add/'
-    //         }
-    //     }]
-    // );
 });
 
-var gamSlots = {};
+let gamSlots = {};
 googletag.cmd.push(function () {
     Object.entries(adSpots).forEach(([key, adSpot]) => {
         if (adSpot.gam !== undefined && adSpot.min <= window.innerWidth && adSpot.max >= window.innerWidth) {
@@ -588,7 +424,7 @@ googletag.cmd.push(function () {
     })
 
     googletag.pubads().setTargeting("advid", advid);
-    googletag.pubads().setTargeting("url", window.location.pathname.substr(0, 40));
+    googletag.pubads().setTargeting("url", window.location.pathname.slice(0, 40));
     // googletag.pubads().enableSingleRequest();
     googletag.pubads().disableInitialLoad();
     googletag.pubads().collapseEmptyDivs();
@@ -600,17 +436,17 @@ googletag.cmd.push(function () {
     })
 });
 
-var eventMethod = window.addEventListener ? "addEventListener" : "attachEvent";
-var eventer = window[eventMethod];
-var messageEvent = eventMethod == "attachEvent" ? "onmessage" : "message";
+let eventMethod = window.addEventListener ? "addEventListener" : "attachEvent";
+let eventer = window[eventMethod];
+let messageEvent = eventMethod == "attachEvent" ? "onmessage" : "message";
 
 // Listen to message from child window
 eventer(messageEvent, function (e) {
 
-    var key = e.message ? "message" : "data";
-    var data = e[key];
+    let key = e.message ? "message" : "data";
+    let data = e[key];
 
-    var eventName = data.message || 'ignore';
+    let eventName = data.message || 'ignore';
 
     if (eventName == 'adContentAvailable') {
         // replace content
@@ -619,6 +455,7 @@ eventer(messageEvent, function (e) {
     }
     //run function//
 }, false);
+//#endregion
 
 //set APS config
 apstag.init({
@@ -628,19 +465,19 @@ apstag.init({
 
 /** Executes a parallel auction between a9 & prebid **/
 function executeBidding(adSpots) {
-    var FAILSAFE_TIMEOUT = 2e3;
-    var requestManager = {
+    let FAILSAFE_TIMEOUT = 2e3;
+    let requestManager = {
         adserverRequestSent: false,
         aps: false,
         prebid: false
     };
 
-    var a9Slots = [];
-    var prebidSlots = [];
-    var refreshSlots = [];
+    let a9Slots = [];
+    let prebidSlots = [];
+    let refreshSlots = [];
     adSpots.forEach(adSpot => {
-        if ('a9' in adSpot) {
-            a9Slots.push(adSpot.a9)
+        if ('a9' in adSpot && adSpot.a9 == true) {
+            a9Slots.push(convertGamToA9(adSpot.gam))
         }
         if ('prebid' in adSpot) {
             prebidSlots.push(adSpot.prebid)
@@ -711,7 +548,7 @@ function executeBidding(adSpots) {
 };
 
 function startAds(){
-    var initialAds = [];
+    let initialAds = [];
     Object.entries(adSpots).forEach(([key, adSpot]) => {
         if (adSpot.min <= window.innerWidth && adSpot.max >= window.innerWidth && adSpot.init !== false) {
             if (adSpot.refreshable !== false) {
@@ -726,7 +563,7 @@ function startAds(){
 
 function adRefresh(adSpot) {
     setInterval(() => {
-        var ad = document.getElementById(adSpot.gam.code).getBoundingClientRect();
+        let ad = document.getElementById(adSpot.gam.code).getBoundingClientRect();
         if (
             !document.hidden
             && adSpot.refreshable !== false
