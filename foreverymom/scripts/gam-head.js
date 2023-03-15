@@ -253,7 +253,7 @@ let adSpots = {
           sizes: [970, 250],
         },
       },
-      bids: [rubicon("1083242"), sovrn("611380"), ix()],
+      bids: [rubicon("1083242"), sovrn("611380"), ix("959725")],
     },
   },
   right_rail: {
