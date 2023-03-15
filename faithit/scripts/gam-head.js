@@ -6,98 +6,6 @@ var pbjs = pbjs || {};
 pbjs.que = pbjs.que || [];
 //#endregion
 
-//#region Ad Functions
-!(function (a9, a, p, s, t, A, g) {
-  if (a[a9]) return;
-
-  function q(c, r) {
-    a[a9]._Q.push([c, r]);
-  }
-  a[a9] = {
-    init: function () {
-      q("i", arguments);
-    },
-    fetchBids: function () {
-      q("f", arguments);
-    },
-    setDisplayBids: function () {},
-    targetingKeys: function () {
-      return [];
-    },
-    _Q: [],
-  };
-  A = p.createElement(s);
-  A.async = 0;
-  A.src = t;
-  g = p.getElementsByTagName(s)[0];
-  g.parentNode.insertBefore(A, g);
-})(
-  "apstag",
-  window,
-  document,
-  "script",
-  "//c.amazon-adsystem.com/aax2/apstag.js"
-);
-
-let geoData = {};
-
-fetch("https://geolocation.outreach.com/city")
-  .then((resp) => resp.json())
-  .then((data) => {
-    geoData = data;
-  });
-
-function ix(site) {
-  return {
-    bidder: "ix",
-    params: {
-      siteId: site,
-    },
-  };
-}
-
-function openx(value) {
-  return {
-    bidder: "openx",
-    params: {
-      unit: value,
-      delDomain: "faithit-d.openx.net",
-    },
-  };
-}
-
-function rubicon(zone) {
-  return {
-    bidder: "rubicon",
-    params: {
-      accountId: "16724",
-      siteId: "144998",
-      zoneId: zone,
-      latLong: [geoData.latitude, geoData.longitude],
-      floor: 0.01,
-    },
-  };
-}
-
-function sovrn(value) {
-  return {
-    bidder: "sovrn",
-    params: {
-      tagid: value,
-      bidfloor: "0.01",
-    },
-  };
-}
-
-function convertGamToA9(gamSlot) {
-  return {
-    slotID: gamSlot.code,
-    slotName: gamSlot.unit,
-    sizes: gamSlot.sizes,
-  };
-}
-//#endregion
-
 //#region AdSpots
 let adSpots = {
   inline_mobile1: {
@@ -432,6 +340,98 @@ let adSpots = {
 };
 //#endregion
 
+//#region Ad Functions
+!(function (a9, a, p, s, t, A, g) {
+  if (a[a9]) return;
+
+  function q(c, r) {
+    a[a9]._Q.push([c, r]);
+  }
+  a[a9] = {
+    init: function () {
+      q("i", arguments);
+    },
+    fetchBids: function () {
+      q("f", arguments);
+    },
+    setDisplayBids: function () {},
+    targetingKeys: function () {
+      return [];
+    },
+    _Q: [],
+  };
+  A = p.createElement(s);
+  A.async = 0;
+  A.src = t;
+  g = p.getElementsByTagName(s)[0];
+  g.parentNode.insertBefore(A, g);
+})(
+  "apstag",
+  window,
+  document,
+  "script",
+  "//c.amazon-adsystem.com/aax2/apstag.js"
+);
+
+var geoData = {};
+
+fetch("https://geolocation.outreach.com/city")
+  .then((resp) => resp.json())
+  .then((data) => {
+    geoData = data;
+  });
+
+function ix(site) {
+  return {
+    bidder: "ix",
+    params: {
+      siteId: site,
+    },
+  };
+}
+
+function openx(value) {
+  return {
+    bidder: "openx",
+    params: {
+      unit: value,
+      delDomain: "faithit-d.openx.net",
+    },
+  };
+}
+
+function rubicon(zone) {
+  return {
+    bidder: "rubicon",
+    params: {
+      accountId: "16724",
+      siteId: "144998",
+      zoneId: zone,
+      latLong: [geoData?.latitude, geoData?.longitude],
+      floor: 0.01,
+    },
+  };
+}
+
+function sovrn(value) {
+  return {
+    bidder: "sovrn",
+    params: {
+      tagid: value,
+      bidfloor: "0.01",
+    },
+  };
+}
+
+function convertGamToA9(gamSlot) {
+  return {
+    slotID: gamSlot.code,
+    slotName: gamSlot.unit,
+    sizes: gamSlot.sizes,
+  };
+}
+//#endregion
+
 //#region Set Ad Queue
 pbjs.que.push(function () {
   pbjs.setConfig({
@@ -629,5 +629,5 @@ window.addEventListener("load", () => {
   startAds();
   setTimeout(() => {
     fireInterstitial();
-  }, 1e4);
+  }, 1e4); // 10 seconds
 });

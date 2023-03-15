@@ -39,7 +39,7 @@ pbjs.que = pbjs.que || [];
   "//c.amazon-adsystem.com/aax2/apstag.js"
 );
 
-let geoData = {};
+var geoData = {};
 
 fetch("https://geolocation.outreach.com/city")
   .then((resp) => resp.json())
@@ -73,7 +73,7 @@ function rubicon(zone) {
       accountId: "16724",
       siteId: "145002",
       zoneId: zone,
-      latLong: [geoData.latitude, geoData.longitude],
+      latLong: [geoData?.latitude, geoData?.longitude],
       floor: 0.01,
     },
   };

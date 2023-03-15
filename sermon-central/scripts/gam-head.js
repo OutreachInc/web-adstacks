@@ -117,7 +117,7 @@ let adSpots = {
       code: "inline-mobile1",
     },
     a9: true,
-    bids: [openx("538767369"), ix(200251), rubicon("743318")],
+    bids: [openx("538767369"), ix(200251), rubicon("743318"), sovrn("1119239")],
   },
   inlineMobile2: {
     min: 0,
@@ -128,7 +128,7 @@ let adSpots = {
       code: "inline-mobile2",
     },
     a9: true,
-    bids: [ix(200252), rubicon("743320")],
+    bids: [ix(200252), rubicon("743320"), sovrn("1119240")],
   },
   inlineMobile3: {
     min: 0,
@@ -139,7 +139,7 @@ let adSpots = {
       code: "inline-mobile3",
     },
     a9: true,
-    bids: [ix(200253), rubicon("743322")],
+    bids: [ix(200253), rubicon("743322"), sovrn("1119241")],
   },
   inlineMobile4: {
     min: 0,
@@ -150,7 +150,7 @@ let adSpots = {
       code: "inline-mobile4",
     },
     a9: true,
-    bids: [ix(200254), rubicon("743324")],
+    bids: [ix(200254), rubicon("743324"), sovrn("1119242")],
   },
   btfMobile: {
     min: 0,
@@ -167,7 +167,7 @@ let adSpots = {
           sizes: [[300, 250]],
         },
       },
-      bids: [openx("538768368"), ix(200250), rubicon("743316")],
+      bids: [openx("538768368"), ix(200250), rubicon("743316"), sovrn("1119243")],
     },
   },
   billboard: {
@@ -186,7 +186,7 @@ let adSpots = {
           sizes: [[970, 250]],
         },
       },
-      bids: [],
+      bids: [sovrn("1119247"), ix(959764), rubicon("2808042")],
     },
   },
   leaderboard: {
@@ -232,7 +232,7 @@ let adSpots = {
           ],
         },
       },
-      bids: [openx("538768367"), ix(200249), rubicon("743310")],
+      bids: [openx("538768367"), ix(200249), rubicon("743310"), sovrn("1119244")],
     },
   },
   rightRailShowcase: {
@@ -251,7 +251,7 @@ let adSpots = {
           sizes: [[300, 250]],
         },
       },
-      bids: [ix(200258), rubicon("743306")],
+      bids: [ix(200258), rubicon("743306"), sovrn("1119245")],
     },
   },
   rightRailSticky: {
@@ -278,7 +278,7 @@ let adSpots = {
           ],
         },
       },
-      bids: [ix(200257), rubicon("743312")],
+      bids: [ix(200257), rubicon("743312"), sovrn("1119246")],
     },
   },
   interstitial: {
