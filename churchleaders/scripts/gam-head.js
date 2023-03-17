@@ -6,13 +6,64 @@ pbjs.que = pbjs.que || [];
 
 var clCategory = new URL(location.href).pathname.split("/")[1];
 if(clCategory == 'outreach-missions') clCategory = 'outreach';
+
+var geoData = {
+  countryCode: null
+};
+var adSchedulerData = {
+  desktop_floor: 4.00,
+  mobile_floor: 4.00,
+  show_desktop: true,
+  show_mobile: true,
+};
+// Default if APIs fail
+var prebidConfig = {
+  price_floor: 4.00,
+  shouldFire: true,
+};
+
+async function getGeoAndApiResponse() {
+  try {
+    await Promise.all([
+      fetch("https://geolocation.outreach.com/city").then(resp => resp.json()),
+      fetch("https://portal.outreachmediagroup.com/api/adscheduler/2").then(resp => resp.json())
+    ]).then((data) => {
+      geoData = data[0];
+      adSchedulerData = data[1];
+    });
+  } catch (error) {
+    
+  }
+
+  if(geoData.countryCode === 'US'){
+    let desktopFloor = parseFloat(adSchedulerData.desktop_floor).toFixed(2)
+    let mobileFloor = parseFloat(adSchedulerData.mobile_floor).toFixed(2)
+    let isMobile = window.innerWidth < 768;
+    prebidConfig = {
+      price_floor: isMobile ? mobileFloor : desktopFloor,
+      shouldFire: isMobile ? adSchedulerData.show_mobile : adSchedulerData.show_desktop,
+    }
+  }
+}
+
+getGeoAndApiResponse().then(() => {
+  pbjs.que.push(function () {
+    pbjs.setConfig({
+      priceGranularity: "dense",
+      floors: {
+        default: parseFloat(prebidConfig.price_floor)
+      },
+    });
+  });
+  startAdsOnLoad();
+});
 //#endregion
 
 //#region AdSpots
 var adSpots = {
     inline_mobile1: {
         min: 0,
-        max: 768,
+        max: 767,
         gam: {
             unit: '/5500201/cl_mobile_inline_mobile1',
             sizes: [[300, 250]],
@@ -40,7 +91,7 @@ var adSpots = {
     },
     inline_mobile2: {
         min: 0,
-        max: 768,
+        max: 767,
         gam: {
             unit: '/5500201/cl_mobile_inline_mobile2',
             sizes: [[300, 250]],
@@ -64,7 +115,7 @@ var adSpots = {
     },
     inline_mobile3: {
         min: 0,
-        max: 768,
+        max: 767,
         gam: {
             unit: '/5500201/cl_mobile_inline_mobile3',
             sizes: [[300, 250]],
@@ -88,7 +139,7 @@ var adSpots = {
     },
     inline_mobile4: {
         min: 0,
-        max: 768,
+        max: 767,
         gam: {
             unit: '/5500201/cl_mobile_inline_mobile4',
             sizes: [[300, 250]],
@@ -112,7 +163,7 @@ var adSpots = {
     },
     inline_mobile5: {
         min: 0,
-        max: 768,
+        max: 767,
         gam: {
             unit: '/5500201/cl_mobile_inline_mobile5',
             sizes: [[300, 250]],
@@ -136,7 +187,7 @@ var adSpots = {
     },
     inline_mobile6: {
         min: 0,
-        max: 768,
+        max: 767,
         gam: {
             unit: '/5500201/cl_mobile_inline_mobile6',
             sizes: [[300, 250]],
@@ -159,7 +210,7 @@ var adSpots = {
     },
     inline_mobile7: {
         min: 0,
-        max: 768,
+        max: 767,
         gam: {
             unit: '/5500201/cl_mobile_inline_mobile7',
             sizes: [[300, 250]],
@@ -183,7 +234,7 @@ var adSpots = {
     },
     btf_mobile: {
         min: 0,
-        max: 768,
+        max: 767,
         gam: {
             unit: '/5500201/cl_mobile_btf_mobile',
             sizes: [[300, 250]],
@@ -207,7 +258,7 @@ var adSpots = {
     },
     mobileSticky: {
         min: 0,
-        max: 768,
+        max: 767,
         refreshable: false,
         gam: {
             unit: '/5500201/cl_mobile_adhesion_320x100',
@@ -500,14 +551,6 @@ var adSpots = {
     "//c.amazon-adsystem.com/aax2/apstag.js"
   );
   
-  var geoData = null;
-  
-  fetch("https://geolocation.outreach.com/city")
-    .then((resp) => resp.json())
-    .then((data) => {
-      geoData = data;
-    });
-  
   function ix(site) {
     return {
       bidder: "ix",
@@ -535,7 +578,7 @@ var adSpots = {
         siteId: "156028",
         zoneId: zone,
         latLong: geoData ? [geoData.latitude, geoData.longitude] : null,
-        floor: 0.01,
+        // floor: parseFloat(prebidConfig.price_floor),
       },
     };
   }
@@ -545,7 +588,7 @@ var adSpots = {
       bidder: "sovrn",
       params: {
         tagid: value,
-        bidfloor: "0.01",
+        // bidfloor: prebidConfig.price_floor.toString(),
       },
     };
   }
@@ -560,13 +603,8 @@ var adSpots = {
   //#endregion
   
 //#region Set Ad Queue
-pbjs.que.push(function () {
-    pbjs.setConfig({
-        priceGranularity: "dense",
-    });
-});
-
 var gamSlots = {};
+
 googletag.cmd.push(function () {
     Object.entries(adSpots).forEach(([key, adSpot]) => {
         if (adSpot.gam !== undefined && adSpot.min <= window.innerWidth && adSpot.max >= window.innerWidth) {
@@ -756,6 +794,18 @@ function fireInterstitial() {
     executeBidding([adSpots.interstitial]);
   }
 
-window.addEventListener("load", () => {
-  startAds();
-});
+function startAdsOnLoad(){
+  if (document.readyState === 'complete'){
+    startAds();
+    setTimeout(() => {
+      fireInterstitial();
+    }, 1e4); // 10 seconds
+  } else {
+    window.addEventListener("load", () => {
+      startAds();
+      setTimeout(() => {
+        fireInterstitial();
+      }, 1e4); // 10 seconds
+    });
+  }
+}
