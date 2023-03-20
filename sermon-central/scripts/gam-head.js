@@ -55,7 +55,7 @@ async function getGeoAndApiResponse() {
   if (geoData.countryCode === "US") {
     let desktopFloor = parseFloat(adSchedulerData.desktop_floor).toFixed(2);
     let mobileFloor = parseFloat(adSchedulerData.mobile_floor).toFixed(2);
-    let isMobile = window.innerWidth <= adSpots.inline_mobile1.max;
+    let isMobile = window.innerWidth <= adSpots.inlineMobile1.max;
     prebidConfig = {
       price_floor: isMobile ? mobileFloor : desktopFloor,
       shouldFire: isMobile
