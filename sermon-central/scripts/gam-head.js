@@ -585,7 +585,7 @@ function canFireInterstitial() {
 
 function fireInterstitial() {
   interstitialFired = true;
-  googletag.display("desktop-interstitial");
+  googletag.display("interstitial");
   executeBidding([adSpots.interstitial]);
 }
 
