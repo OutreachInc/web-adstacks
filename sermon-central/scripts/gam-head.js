@@ -151,7 +151,10 @@ var adSpots = {
     max: 9999,
     gam: {
       unit: "/5500201/sc_desktop_billboard_970x250",
-      sizes: [[970, 250]],
+      sizes: [
+        [970, 250],
+        [728, 90],
+      ],
       code: "desktop-billboard",
     },
     a9: true,
@@ -159,7 +162,10 @@ var adSpots = {
       code: "desktop-billboard",
       mediaTypes: {
         banner: {
-          sizes: [[970, 250]],
+          sizes: [
+            [970, 250],
+            [728, 90],
+          ],
         },
       },
       bids: [sovrn("1119247"), ix(959764), rubicon("2808042")],
