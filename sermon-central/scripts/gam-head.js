@@ -577,6 +577,7 @@ window.addEventListener("scroll", () => {
 
 function canFireInterstitial() {
   return (
+    document.readyState === "complete" &&
     !interstitialFired &&
     window.pageYOffset / document.body.offsetHeight >= 1 / 5 &&
     window.innerWidth >= adSpots.interstitial.min
