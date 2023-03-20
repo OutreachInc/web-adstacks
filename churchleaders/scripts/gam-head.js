@@ -37,6 +37,8 @@ async function getGeoAndApiResponse() {
     });
   } catch (error) {}
 
+  console.log(geoData.countryCode);
+
   if (geoData.countryCode === "US") {
     let desktopFloor = parseFloat(adSchedulerData.desktop_floor).toFixed(2);
     let mobileFloor = parseFloat(adSchedulerData.mobile_floor).toFixed(2);
@@ -48,6 +50,8 @@ async function getGeoAndApiResponse() {
         : adSchedulerData.show_desktop,
     };
   }
+
+  console.log(prebidConfig);
 }
 
 getGeoAndApiResponse().then(() => {
@@ -656,8 +660,8 @@ function executeBidding(adSpots) {
   let FAILSAFE_TIMEOUT = 2e3;
   let requestManager = {
     adserverRequestSent: false,
-    aps: false,
-    prebid: false,
+    aps: prebidConfig.shouldFire ? false : true,
+    prebid: prebidConfig.shouldFire ? false : true,
   };
 
   let a9Slots = [];
