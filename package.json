@@ -1,6 +1,6 @@
 {
 "scripts": {
-    "build": "mix --production"
+  "build": "mix --production"
 },
   "devDependencies": {
     "laravel-mix": "^6.0.49"

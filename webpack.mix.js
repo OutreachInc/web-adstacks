@@ -1,10 +1,19 @@
 let mix = require("laravel-mix");
 
 mix
-  .js(
+  .minify(
     "sermon-central/scripts/gam-head.js",
-    "sermon-central/dist/gam-head.min.js"
+    "sermon-central/dist/gam-head.min.js",
+    false
   )
-  .js("faithit/scripts/gam-head.js", "faithit/dist/gam-head.min.js")
-  .js("churchleaders/scripts/gam-head.js", "churchleaders/dist/gam-head.min.js")
-  .js("foreverymom/scripts/gam-head.js", "foreverymom/dist/gam-head.min.js");
+  .minify("faithit/scripts/gam-head.js", "faithit/dist/gam-head.min.js", false)
+  .minify(
+    "churchleaders/scripts/gam-head.js",
+    "churchleaders/dist/gam-head.min.js",
+    false
+  )
+  .minify(
+    "foreverymom/scripts/gam-head.js",
+    "foreverymom/dist/gam-head.min.js",
+    false
+  );
