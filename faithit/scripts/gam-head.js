@@ -1,13 +1,64 @@
 //#region Global Variables
 var advid = advid || null;
-var googletag = googletag || {};
-googletag.cmd = googletag.cmd || [];
-var pbjs = pbjs || {};
-pbjs.que = pbjs.que || [];
+
+var geoData = {
+  countryCode: null,
+};
+var adSchedulerData = {
+  desktop_floor: 4.0,
+  mobile_floor: 4.0,
+  show_desktop: true,
+  show_mobile: true,
+};
+// Default if APIs fail
+var prebidConfig = {
+  price_floor: 4.0,
+  shouldFire: true,
+};
+
+async function getGeoAndApiResponse() {
+  try {
+    await Promise.all([
+      fetch("https://geolocation.outreach.com/city").then((resp) =>
+        resp.json()
+      ),
+      fetch("https://portal.outreachmediagroup.com/api/adscheduler/2").then(
+        (resp) => resp.json()
+      ),
+    ]).then((data) => {
+      geoData = data[0];
+      adSchedulerData = data[1];
+    });
+  } catch (error) {}
+
+  if (geoData.countryCode === "US") {
+    let desktopFloor = parseFloat(adSchedulerData.desktop_floor).toFixed(2);
+    let mobileFloor = parseFloat(adSchedulerData.mobile_floor).toFixed(2);
+    let isMobile = window.innerWidth <= adSpots.inline_mobile1.max;
+    prebidConfig = {
+      price_floor: isMobile ? mobileFloor : desktopFloor,
+      shouldFire: isMobile
+        ? adSchedulerData.show_mobile
+        : adSchedulerData.show_desktop,
+    };
+  }
+}
+
+getGeoAndApiResponse().then(() => {
+  pbjs.que.push(function () {
+    pbjs.setConfig({
+      priceGranularity: "dense",
+      floors: {
+        default: parseFloat(prebidConfig.price_floor),
+      },
+    });
+  });
+  startAdsOnLoad();
+});
 //#endregion
 
 //#region AdSpots
-let adSpots = {
+var adSpots = {
   inline_mobile1: {
     min: 0,
     max: 767,
@@ -373,14 +424,6 @@ let adSpots = {
   "//c.amazon-adsystem.com/aax2/apstag.js"
 );
 
-var geoData = {};
-
-fetch("https://geolocation.outreach.com/city")
-  .then((resp) => resp.json())
-  .then((data) => {
-    geoData = data;
-  });
-
 function ix(site) {
   return {
     bidder: "ix",
@@ -408,7 +451,7 @@ function rubicon(zone) {
       siteId: "144998",
       zoneId: zone,
       latLong: [geoData?.latitude, geoData?.longitude],
-      floor: 0.01,
+      // floor: parseFloat(prebidConfig.price_floor),
     },
   };
 }
@@ -418,7 +461,7 @@ function sovrn(value) {
     bidder: "sovrn",
     params: {
       tagid: value,
-      bidfloor: "0.01",
+      // bidfloor: prebidConfig.price_floor.toString(),
     },
   };
 }
@@ -433,13 +476,8 @@ function convertGamToA9(gamSlot) {
 //#endregion
 
 //#region Set Ad Queue
-pbjs.que.push(function () {
-  pbjs.setConfig({
-    priceGranularity: "dense",
-  });
-});
+var gamSlots = {};
 
-let gamSlots = {};
 googletag.cmd.push(function () {
   Object.entries(adSpots).forEach(([key, adSpot]) => {
     if (
@@ -504,8 +542,8 @@ function executeBidding(adSpots) {
   let FAILSAFE_TIMEOUT = 2e3;
   let requestManager = {
     adserverRequestSent: false,
-    aps: false,
-    prebid: false,
+    aps: prebidConfig.shouldFire ? false : true, // false indicates that we need to send the request
+    prebid: prebidConfig.shouldFire ? false : true, // false indicates that we need to send the request
   };
 
   let a9Slots = [];
@@ -625,9 +663,19 @@ function fireInterstitial() {
   executeBidding([adSpots.interstitial]);
 }
 
-window.addEventListener("load", () => {
+function startAdsOnLoad() {
+  if (document.readyState === "complete") {
+    loadInAds();
+  } else {
+    window.addEventListener("load", () => {
+      loadInAds();
+    });
+  }
+}
+
+function loadInAds() {
   startAds();
   setTimeout(() => {
     fireInterstitial();
   }, 1e4); // 10 seconds
-});
+}

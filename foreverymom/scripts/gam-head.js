@@ -4,105 +4,68 @@ var googletag = googletag || {};
 googletag.cmd = googletag.cmd || [];
 var pbjs = pbjs || {};
 pbjs.que = pbjs.que || [];
-//#endregion
 
-//#region Ad Functions
-!(function (a9, a, p, s, t, A, g) {
-  if (a[a9]) return;
+var geoData = {
+  countryCode: null,
+};
+var adSchedulerData = {
+  desktop_floor: 4.0,
+  mobile_floor: 4.0,
+  show_desktop: true,
+  show_mobile: true,
+};
+// Default if APIs fail
+var prebidConfig = {
+  price_floor: 4.0,
+  shouldFire: true,
+};
 
-  function q(c, r) {
-    a[a9]._Q.push([c, r]);
+async function getGeoAndApiResponse() {
+  try {
+    await Promise.all([
+      fetch("https://geolocation.outreach.com/city").then((resp) =>
+        resp.json()
+      ),
+      fetch("https://portal.outreachmediagroup.com/api/adscheduler/3").then(
+        (resp) => resp.json()
+      ),
+    ]).then((data) => {
+      geoData = data[0];
+      adSchedulerData = data[1];
+    });
+  } catch (error) {}
+
+  if (geoData.countryCode === "US") {
+    let desktopFloor = parseFloat(adSchedulerData.desktop_floor).toFixed(2);
+    let mobileFloor = parseFloat(adSchedulerData.mobile_floor).toFixed(2);
+    let isMobile = window.innerWidth <= adSpots.inline_mobile1.max;
+    prebidConfig = {
+      price_floor: isMobile ? mobileFloor : desktopFloor,
+      shouldFire: isMobile
+        ? adSchedulerData.show_mobile
+        : adSchedulerData.show_desktop,
+    };
   }
-  a[a9] = {
-    init: function () {
-      q("i", arguments);
-    },
-    fetchBids: function () {
-      q("f", arguments);
-    },
-    setDisplayBids: function () {},
-    targetingKeys: function () {
-      return [];
-    },
-    _Q: [],
-  };
-  A = p.createElement(s);
-  A.async = 0;
-  A.src = t;
-  g = p.getElementsByTagName(s)[0];
-  g.parentNode.insertBefore(A, g);
-})(
-  "apstag",
-  window,
-  document,
-  "script",
-  "//c.amazon-adsystem.com/aax2/apstag.js"
-);
+}
 
-var geoData = {};
-
-fetch("https://geolocation.outreach.com/city")
-  .then((resp) => resp.json())
-  .then((data) => {
-    geoData = data;
+getGeoAndApiResponse().then(() => {
+  pbjs.que.push(function () {
+    pbjs.setConfig({
+      priceGranularity: "dense",
+      floors: {
+        default: parseFloat(prebidConfig.price_floor),
+      },
+    });
   });
-
-function ix(site) {
-  return {
-    bidder: "ix",
-    params: {
-      siteId: site,
-    },
-  };
-}
-
-function openx(value) {
-  return {
-    bidder: "openx",
-    params: {
-      unit: value,
-      delDomain: "faithit-d.openx.net",
-    },
-  };
-}
-
-function rubicon(zone) {
-  return {
-    bidder: "rubicon",
-    params: {
-      accountId: "16724",
-      siteId: "145002",
-      zoneId: zone,
-      latLong: [geoData?.latitude, geoData?.longitude],
-      floor: 0.01,
-    },
-  };
-}
-
-function sovrn(value) {
-  return {
-    bidder: "sovrn",
-    params: {
-      tagid: value,
-      bidfloor: "0.01",
-    },
-  };
-}
-
-function convertGamToA9(gamSlot) {
-  return {
-    slotID: gamSlot.code,
-    slotName: gamSlot.unit,
-    sizes: gamSlot.sizes,
-  };
-}
+  startAdsOnLoad();
+});
 //#endregion
 
 //#region AdSpots
 let adSpots = {
   inline_mobile1: {
     min: 0,
-    max: 959,
+    max: 767,
     gam: {
       unit: "/5500201/FEM_Mobile_Inline_Mobile1",
       sizes: [[300, 250]],
@@ -130,7 +93,7 @@ let adSpots = {
   },
   inline_mobile2: {
     min: 0,
-    max: 959,
+    max: 767,
     gam: {
       unit: "/5500201/FEM_Mobile_Inline_Mobile2",
       sizes: [[300, 250]],
@@ -154,7 +117,7 @@ let adSpots = {
   },
   inline_mobile3: {
     min: 0,
-    max: 959,
+    max: 767,
     gam: {
       unit: "/5500201/FEM_Mobile_Inline_Mobile3",
       sizes: [[300, 250]],
@@ -178,7 +141,7 @@ let adSpots = {
   },
   inline_mobile4: {
     min: 0,
-    max: 959,
+    max: 767,
     gam: {
       unit: "/5500201/FEM_Mobile_Inline_Mobile4",
       sizes: [[300, 250]],
@@ -202,7 +165,7 @@ let adSpots = {
   },
   btfMobile: {
     min: 0,
-    max: 959,
+    max: 767,
     gam: {
       unit: "/5500201/FEM_Mobile_BTF_Mobile",
       sizes: [[300, 250]],
@@ -227,7 +190,7 @@ let adSpots = {
   mobileSticky: {
     refreshable: false,
     min: 0,
-    max: 959,
+    max: 767,
     gam: {
       unit: "/5500201/FEM_Mobile_320x100",
       sizes: [
@@ -257,7 +220,7 @@ let adSpots = {
     },
   },
   right_rail: {
-    min: 960,
+    min: 768,
     max: 9999,
     gam: {
       unit: "/5500201/FEM_Desktop_Right_Rail",
@@ -358,7 +321,7 @@ let adSpots = {
   //     }
   // },
   // desktop_outstream: {
-  //     min: 960,
+  //     min: 768,
   //     max: 9999,
   //     gam: {
   //         unit: '/5500201/FEM_Desktop_Outstream',
@@ -379,7 +342,7 @@ let adSpots = {
   interstitial: {
     init: false,
     refreshable: false,
-    min: 960,
+    min: 768,
     max: 9999,
     gam: {
       unit: "/5500201/FEM_Interstitial_550x350",
@@ -389,7 +352,7 @@ let adSpots = {
   },
   desktop_native: {
     refreshable: false,
-    min: 960,
+    min: 768,
     max: 9999,
     gam: {
       unit: "/5500201/FEM_Desktop_Native",
@@ -409,14 +372,93 @@ let adSpots = {
 };
 //#endregion
 
-//#region Set Ad Queue
-pbjs.que.push(function () {
-  pbjs.setConfig({
-    priceGranularity: "dense",
-  });
-});
+//#region Ad Functions
+!(function (a9, a, p, s, t, A, g) {
+  if (a[a9]) return;
 
-let gamSlots = {};
+  function q(c, r) {
+    a[a9]._Q.push([c, r]);
+  }
+  a[a9] = {
+    init: function () {
+      q("i", arguments);
+    },
+    fetchBids: function () {
+      q("f", arguments);
+    },
+    setDisplayBids: function () {},
+    targetingKeys: function () {
+      return [];
+    },
+    _Q: [],
+  };
+  A = p.createElement(s);
+  A.async = 0;
+  A.src = t;
+  g = p.getElementsByTagName(s)[0];
+  g.parentNode.insertBefore(A, g);
+})(
+  "apstag",
+  window,
+  document,
+  "script",
+  "//c.amazon-adsystem.com/aax2/apstag.js"
+);
+
+function ix(site) {
+  return {
+    bidder: "ix",
+    params: {
+      siteId: site,
+    },
+  };
+}
+
+function openx(value) {
+  return {
+    bidder: "openx",
+    params: {
+      unit: value,
+      delDomain: "faithit-d.openx.net",
+    },
+  };
+}
+
+function rubicon(zone) {
+  return {
+    bidder: "rubicon",
+    params: {
+      accountId: "16724",
+      siteId: "145002",
+      zoneId: zone,
+      latLong: [geoData?.latitude, geoData?.longitude],
+      // floor: parseFloat(prebidConfig.price_floor),
+    },
+  };
+}
+
+function sovrn(value) {
+  return {
+    bidder: "sovrn",
+    params: {
+      tagid: value,
+      // bidfloor: prebidConfig.price_floor.toString(),
+    },
+  };
+}
+
+function convertGamToA9(gamSlot) {
+  return {
+    slotID: gamSlot.code,
+    slotName: gamSlot.unit,
+    sizes: gamSlot.sizes,
+  };
+}
+//#endregion
+
+//#region Set Ad Queue
+var gamSlots = {};
+
 googletag.cmd.push(function () {
   Object.entries(adSpots).forEach(([key, adSpot]) => {
     if (
@@ -481,8 +523,8 @@ function executeBidding(adSpots) {
   let FAILSAFE_TIMEOUT = 2e3;
   let requestManager = {
     adserverRequestSent: false,
-    aps: false,
-    prebid: false,
+    aps: prebidConfig.shouldFire ? false : true, // false indicates that we need to send the request
+    prebid: prebidConfig.shouldFire ? false : true, // false indicates that we need to send the request
   };
 
   let a9Slots = [];
@@ -602,9 +644,18 @@ function fireInterstitial() {
   executeBidding([adSpots.interstitial]);
 }
 
-window.addEventListener("load", () => {
-  startAds();
-  setTimeout(() => {
-    fireInterstitial();
-  }, 1e4);
-});
+function startAdsOnLoad() {
+  if (document.readyState === "complete") {
+    startAds();
+    setTimeout(() => {
+      fireInterstitial();
+    }, 1e4); // 10 seconds
+  } else {
+    window.addEventListener("load", () => {
+      startAds();
+      setTimeout(() => {
+        fireInterstitial();
+      }, 1e4); // 10 seconds
+    });
+  }
+}
