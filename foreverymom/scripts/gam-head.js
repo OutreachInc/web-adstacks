@@ -6,41 +6,45 @@ var pbjs = pbjs || {};
 pbjs.que = pbjs.que || [];
 
 var geoData = {
-  countryCode: null
+  countryCode: null,
 };
 var adSchedulerData = {
-  desktop_floor: 4.00,
-  mobile_floor: 4.00,
+  desktop_floor: 4.0,
+  mobile_floor: 4.0,
   show_desktop: true,
   show_mobile: true,
 };
 // Default if APIs fail
 var prebidConfig = {
-  price_floor: 4.00,
+  price_floor: 4.0,
   shouldFire: true,
 };
 
 async function getGeoAndApiResponse() {
   try {
     await Promise.all([
-      fetch("https://geolocation.outreach.com/city").then(resp => resp.json()),
-      fetch("https://portal.outreachmediagroup.com/api/adscheduler/2").then(resp => resp.json())
+      fetch("https://geolocation.outreach.com/city").then((resp) =>
+        resp.json()
+      ),
+      fetch("https://portal.outreachmediagroup.com/api/adscheduler/3").then(
+        (resp) => resp.json()
+      ),
     ]).then((data) => {
       geoData = data[0];
       adSchedulerData = data[1];
     });
-  } catch (error) {
-    
-  }
+  } catch (error) {}
 
-  if(geoData.countryCode === 'US'){
-    let desktopFloor = parseFloat(adSchedulerData.desktop_floor).toFixed(2)
-    let mobileFloor = parseFloat(adSchedulerData.mobile_floor).toFixed(2)
-    let isMobile = window.innerWidth < 960;
+  if (geoData.countryCode === "US") {
+    let desktopFloor = parseFloat(adSchedulerData.desktop_floor).toFixed(2);
+    let mobileFloor = parseFloat(adSchedulerData.mobile_floor).toFixed(2);
+    let isMobile = window.innerWidth <= adSpots.inline_mobile1.max;
     prebidConfig = {
       price_floor: isMobile ? mobileFloor : desktopFloor,
-      shouldFire: isMobile ? adSchedulerData.show_mobile : adSchedulerData.show_desktop,
-    }
+      shouldFire: isMobile
+        ? adSchedulerData.show_mobile
+        : adSchedulerData.show_desktop,
+    };
   }
 }
 
@@ -49,7 +53,7 @@ getGeoAndApiResponse().then(() => {
     pbjs.setConfig({
       priceGranularity: "dense",
       floors: {
-        default: parseFloat(prebidConfig.price_floor)
+        default: parseFloat(prebidConfig.price_floor),
       },
     });
   });
@@ -61,7 +65,7 @@ getGeoAndApiResponse().then(() => {
 let adSpots = {
   inline_mobile1: {
     min: 0,
-    max: 959,
+    max: 767,
     gam: {
       unit: "/5500201/FEM_Mobile_Inline_Mobile1",
       sizes: [[300, 250]],
@@ -89,7 +93,7 @@ let adSpots = {
   },
   inline_mobile2: {
     min: 0,
-    max: 959,
+    max: 767,
     gam: {
       unit: "/5500201/FEM_Mobile_Inline_Mobile2",
       sizes: [[300, 250]],
@@ -113,7 +117,7 @@ let adSpots = {
   },
   inline_mobile3: {
     min: 0,
-    max: 959,
+    max: 767,
     gam: {
       unit: "/5500201/FEM_Mobile_Inline_Mobile3",
       sizes: [[300, 250]],
@@ -137,7 +141,7 @@ let adSpots = {
   },
   inline_mobile4: {
     min: 0,
-    max: 959,
+    max: 767,
     gam: {
       unit: "/5500201/FEM_Mobile_Inline_Mobile4",
       sizes: [[300, 250]],
@@ -161,7 +165,7 @@ let adSpots = {
   },
   btfMobile: {
     min: 0,
-    max: 959,
+    max: 767,
     gam: {
       unit: "/5500201/FEM_Mobile_BTF_Mobile",
       sizes: [[300, 250]],
@@ -186,7 +190,7 @@ let adSpots = {
   mobileSticky: {
     refreshable: false,
     min: 0,
-    max: 959,
+    max: 767,
     gam: {
       unit: "/5500201/FEM_Mobile_320x100",
       sizes: [
@@ -216,7 +220,7 @@ let adSpots = {
     },
   },
   right_rail: {
-    min: 960,
+    min: 768,
     max: 9999,
     gam: {
       unit: "/5500201/FEM_Desktop_Right_Rail",
@@ -317,7 +321,7 @@ let adSpots = {
   //     }
   // },
   // desktop_outstream: {
-  //     min: 960,
+  //     min: 768,
   //     max: 9999,
   //     gam: {
   //         unit: '/5500201/FEM_Desktop_Outstream',
@@ -338,7 +342,7 @@ let adSpots = {
   interstitial: {
     init: false,
     refreshable: false,
-    min: 960,
+    min: 768,
     max: 9999,
     gam: {
       unit: "/5500201/FEM_Interstitial_550x350",
@@ -348,7 +352,7 @@ let adSpots = {
   },
   desktop_native: {
     refreshable: false,
-    min: 960,
+    min: 768,
     max: 9999,
     gam: {
       unit: "/5500201/FEM_Desktop_Native",
@@ -640,8 +644,8 @@ function fireInterstitial() {
   executeBidding([adSpots.interstitial]);
 }
 
-function startAdsOnLoad(){
-  if (document.readyState === 'complete'){
+function startAdsOnLoad() {
+  if (document.readyState === "complete") {
     startAds();
     setTimeout(() => {
       fireInterstitial();
