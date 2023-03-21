@@ -777,12 +777,6 @@ function adRefresh(adSpot) {
 }
 
 let interstitialFired = false;
-window.addEventListener("scroll", () => {
-  if (canFireInterstitial()) {
-    fireInterstitial();
-  }
-});
-
 function canFireInterstitial() {
   return (
     document.readyState === "complete" &&
@@ -810,4 +804,13 @@ function startAdsOnLoad() {
 
 function loadInAds() {
   startAds();
+  setTimeout(() => {
+    fireInterstitial();
+  }, 5e3); // 5 seconds
+
+  // window.addEventListener("scroll", () => {
+  //   if (canFireInterstitial()) {
+  //     fireInterstitial();
+  //   }
+  // });
 }

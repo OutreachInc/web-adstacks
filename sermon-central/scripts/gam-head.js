@@ -569,20 +569,20 @@ function adRefresh(adSpot) {
 }
 
 var interstitialFired = false;
-window.addEventListener("scroll", () => {
-  if (canFireInterstitial()) {
-    fireInterstitial();
-  }
-});
+// window.addEventListener("scroll", () => {
+//   if (canFireInterstitial()) {
+//     fireInterstitial();
+//   }
+// });
 
-function canFireInterstitial() {
-  return (
-    document.readyState === "complete" &&
-    !interstitialFired &&
-    window.pageYOffset / document.body.offsetHeight >= 1 / 5 &&
-    window.innerWidth >= adSpots.interstitial.min
-  );
-}
+// function canFireInterstitial() {
+//   return (
+//     document.readyState === "complete" &&
+//     !interstitialFired &&
+//     window.pageYOffset / document.body.offsetHeight >= 1 / 5 &&
+//     window.innerWidth >= adSpots.interstitial.min
+//   );
+// }
 
 function fireInterstitial() {
   interstitialFired = true;
@@ -593,9 +593,15 @@ function fireInterstitial() {
 function startAdsOnLoad() {
   if (document.readyState === "complete") {
     startAds();
+    setTimeout(() => {
+      fireInterstitial();
+    }, 5e3); // 5 seconds
   } else {
     window.addEventListener("load", () => {
       startAds();
+      setTimeout(() => {
+        fireInterstitial();
+      }, 5e3); // 5 seconds
     });
   }
 }
