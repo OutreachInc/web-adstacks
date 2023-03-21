@@ -569,20 +569,14 @@ function adRefresh(adSpot) {
 }
 
 var interstitialFired = false;
-// window.addEventListener("scroll", () => {
-//   if (canFireInterstitial()) {
-//     fireInterstitial();
-//   }
-// });
-
-// function canFireInterstitial() {
-//   return (
-//     document.readyState === "complete" &&
-//     !interstitialFired &&
-//     window.pageYOffset / document.body.offsetHeight >= 1 / 5 &&
-//     window.innerWidth >= adSpots.interstitial.min
-//   );
-// }
+function canFireInterstitial() {
+  return (
+    document.readyState === "complete" &&
+    !interstitialFired &&
+    window.pageYOffset / document.body.offsetHeight >= 1 / 5 &&
+    window.innerWidth >= adSpots.interstitial.min
+  );
+}
 
 function fireInterstitial() {
   interstitialFired = true;
@@ -592,16 +586,26 @@ function fireInterstitial() {
 
 function startAdsOnLoad() {
   if (document.readyState === "complete") {
-    startAds();
+    loadInAds();
+  } else {
+    window.addEventListener("load", () => {
+      loadInAds();
+    });
+  }
+}
+
+function loadInAds() {
+  startAds();
+
+  if (new Date().toLocaleDateString() === "3/22/2023") {
     setTimeout(() => {
       fireInterstitial();
     }, 5e3); // 5 seconds
   } else {
-    window.addEventListener("load", () => {
-      startAds();
-      setTimeout(() => {
+    window.addEventListener("scroll", () => {
+      if (canFireInterstitial()) {
         fireInterstitial();
-      }, 5e3); // 5 seconds
+      }
     });
   }
 }

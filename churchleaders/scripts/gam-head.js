@@ -781,7 +781,7 @@ function canFireInterstitial() {
   return (
     document.readyState === "complete" &&
     !interstitialFired &&
-    window.pageYOffset / document.body.offsetHeight >= 1 / 4 &&
+    window.pageYOffset / document.body.offsetHeight >= 1 / 5 &&
     window.innerWidth >= adSpots.interstitial.min
   );
 }
@@ -804,13 +804,16 @@ function startAdsOnLoad() {
 
 function loadInAds() {
   startAds();
-  setTimeout(() => {
-    fireInterstitial();
-  }, 5e3); // 5 seconds
 
-  // window.addEventListener("scroll", () => {
-  //   if (canFireInterstitial()) {
-  //     fireInterstitial();
-  //   }
-  // });
+  if (new Date().toLocaleDateString() === "3/22/2023") {
+    setTimeout(() => {
+      fireInterstitial();
+    }, 5e3); // 5 seconds
+  } else {
+    window.addEventListener("scroll", () => {
+      if (canFireInterstitial()) {
+        fireInterstitial();
+      }
+    });
+  }
 }
