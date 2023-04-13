@@ -146,6 +146,15 @@ var adSpots = {
       ],
     },
   },
+  mobileAdhesion: {
+    min: 0,
+    max: 767,
+    gam: {
+      unit: "/5500201/sc_mobile_adhesion_320x100",
+      sizes: [[1, 1]],
+      code: "banner-bottom",
+    },
+  },
   billboard: {
     min: 970,
     max: 9999,
@@ -410,9 +419,12 @@ googletag.cmd.push(function () {
   googletag.enableServices();
 
   // Strech iframe to width of mobile device on ad load
-  // googletag.pubads().addEventListener("slotRenderEnded", function(e) {
-  //     e.slot === gamSlots['banner-bottom'] && (document.getElementById("google_ads_iframe_/5500201/sc_mobile_adhesion_320x100_0").width = window.innerWidth)
-  // })
+  googletag.pubads().addEventListener("slotRenderEnded", function (e) {
+    e.slot === gamSlots["mobileAdhesion"] &&
+      (document.getElementById(
+        "google_ads_iframe_/5500201/sc_mobile_adhesion_320x100_0"
+      ).width = window.innerWidth);
+  });
 });
 
 let eventMethod = window.addEventListener ? "addEventListener" : "attachEvent";
@@ -426,7 +438,9 @@ eventer(
     let i = e[e.message ? "message" : "data"];
     if (
       "adContentAvailable" == (i.message || "ignore") &&
-      ("sc-interstitial" == i.adUnit || "interstitial" == i.adUnit)
+      ("sc-interstitial" == i.adUnit ||
+        "interstitial" == i.adUnit ||
+        "mobile-adhesion" == i.adUnit)
     ) {
       document.querySelector(
         '[data-container-ad-unit-id="' + i.adUnit + '"]'
