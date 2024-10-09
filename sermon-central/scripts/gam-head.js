@@ -8,7 +8,7 @@ var pbjs = pbjs || {};
 pbjs.que = pbjs.que || [];
 //#endregion
 
-if ("complete" === document.readyState || "loaded" === document.readyState)
+if ("complete" === document.readyState || "loaded" === document.readyState) {
   if (window.location.href.indexOf("sermons") > -1) {
     let re = /(?=by )(.*)(?= on)/g,
       str = document.getElementsByClassName("subtitle")[0].innerText,
@@ -21,6 +21,7 @@ if ("complete" === document.readyState || "loaded" === document.readyState)
       newAuthor = str.match(re);
     author = newAuthor.toString();
   }
+}
 
 var geoData = {
   countryCode: null,
@@ -37,16 +38,53 @@ var prebidConfig = {
   shouldFire: true,
 };
 
+/**
+ * The timeoutPromise helper allows you to wrap any promise to fulfill within a timeout.
+ *
+ * @param {Promise} promise A promise instance
+ * @param {BigInteger} timeoutInMilliseconds The time limit in milliseconds to fulfill or reject the promise.
+ * @returns {Promise} A pending Promise
+ */
+Promise.timeout = function (promise, timeoutInMilliseconds) {
+  return Promise.race([
+    promise,
+    new Promise(function (resolve, reject) {
+      setTimeout(function () {
+        reject("timeout");
+      }, timeoutInMilliseconds);
+    }),
+  ]);
+};
+
+function getDataFromUrl(url, timeoutInMilliseconds) {
+  return Promise.timeout(
+    new Promise((resolve, reject) => {
+      fetch(url)
+        .then((resp) => resp.json())
+        .then((data) => {
+          resolve(data);
+        })
+        .catch((error) => {
+          console.log("Error fetching data from API", error);
+          reject(error);
+        });
+    }),
+    timeoutInMilliseconds
+  );
+}
+
 async function getGeoAndApiResponse() {
+  const geoDataCall = getDataFromUrl(
+    "https://geolocation.outreach.com/city",
+    1000
+  );
+  const adSchedulerDataCall = getDataFromUrl(
+    "https://portal.outreachmediagroup.com/api/adscheduler/1",
+    1000
+  );
+
   try {
-    await Promise.all([
-      fetch("https://geolocation.outreach.com/city").then((resp) =>
-        resp.json()
-      ),
-      fetch("https://portal.outreachmediagroup.com/api/adscheduler/1").then(
-        (resp) => resp.json()
-      ),
-    ]).then((data) => {
+    await Promise.all([geoDataCall, adSchedulerDataCall]).then((data) => {
       geoData = data[0];
       adSchedulerData = data[1];
     });
@@ -56,6 +94,7 @@ async function getGeoAndApiResponse() {
     let desktopFloor = parseFloat(adSchedulerData.desktop_floor).toFixed(2);
     let mobileFloor = parseFloat(adSchedulerData.mobile_floor).toFixed(2);
     let isMobile = window.innerWidth <= adSpots.inlineMobile1.max;
+
     prebidConfig = {
       price_floor: isMobile ? mobileFloor : desktopFloor,
       shouldFire: isMobile
@@ -420,10 +459,16 @@ googletag.cmd.push(function () {
 
   // Strech iframe to width of mobile device on ad load
   googletag.pubads().addEventListener("slotRenderEnded", function (e) {
-    e.slot === gamSlots["mobileAdhesion"] &&
-      (document.getElementById(
-        "google_ads_iframe_/5500201/sc_mobile_adhesion_320x100_0"
-      ).width = window.innerWidth);
+    if (e.slot === gamSlots["banner-bottom"] && e.slot.getHtml()) {
+      // document.getElementById(
+      //   "google_ads_iframe_/5500201/sc_mobile_adhesion_320x100_0"
+      // ).width = window.innerWidth;
+
+      const timeNow = new Date().getTime();
+      const oneDayFromNow = new Date(timeNow + 24 * 60 * 60 * 1000);
+      const dateExpiresString = oneDayFromNow.toUTCString();
+      document.cookie = `fired_mobile_adhesion=true;expires=${dateExpiresString}; SameSite=None; Secure`;
+    }
   });
 });
 
@@ -587,7 +632,7 @@ function canFireInterstitial() {
   return (
     document.readyState === "complete" &&
     !interstitialFired &&
-    window.pageYOffset / document.body.offsetHeight >= 1 / 5 &&
+    window.scrollY / document.body.offsetHeight >= 1 / 5 &&
     window.innerWidth >= adSpots.interstitial.min
   );
 }
@@ -609,6 +654,7 @@ function startAdsOnLoad() {
 }
 
 function loadInAds() {
+  limitMobileAdhesion();
   startAds();
 
   if (new Date().toLocaleDateString() === "3/22/2023") {
@@ -621,5 +667,16 @@ function loadInAds() {
         fireInterstitial();
       }
     });
+  }
+}
+
+function limitMobileAdhesion() {
+  if (
+    window.innerWidth <= adSpots.mobileAdhesion.max &&
+    document.cookie
+      .split("; ")
+      .find((row) => row.startsWith("fired_mobile_adhesion"))
+  ) {
+    delete adSpots.mobileAdhesion;
   }
 }
