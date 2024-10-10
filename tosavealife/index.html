@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TSAL Ad Units</title>
+    <script>
+      var googletag = googletag || {};
+      googletag.cmd = googletag.cmd || [];
+      var author = null;
+      var advid = null;
+    </script>
+    <script src="https://www.googletagservices.com/tag/js/gpt.js"></script>
+    <!-- <script src="/tosavealife/scripts/prebid.min.js" async></script> -->
+    <script src="/tosavealife/scripts/gam.js"></script>
+  </head>
+  <body>
+    <h1>TSAL Ad Stack</h1>
+    <h2>Desktop</h2>
+    <div>
+      <h3>Desktop Billboard</h3>
+      <div id="desktop-billboard" class="horizontal-ad-970x250">
+        <script>
+          googletag.cmd.push(function () {
+            googletag.display("desktop-billboard");
+          });
+        </script>
+      </div>
+    </div>
+    <div>
+      <h3>Right Rail</h3>
+      <div id="right-rail" class="horizontal-ad-970x250">
+        <script>
+          googletag.cmd.push(function () {
+            googletag.display("right-rail");
+          });
+        </script>
+      </div>
+    </div>
+    <div>
+      <h3>BTF Left</h3>
+      <div id="btf-left">
+        <script>
+          googletag.cmd.push(function () {
+            googletag.display("btf-left");
+          });
+        </script>
+      </div>
+    </div>
+    <div>
+      <h3>BTF Right</h3>
+      <div id="btf-right" class="vertical-ad-300x250">
+        <script>
+          googletag.cmd.push(function () {
+            googletag.display("btf-right");
+          });
+        </script>
+      </div>
+    </div>
+    <div>
+      <h3>Interstitial</h3>
+      <div id="desktop-interstitial">
+        <script>
+          googletag.cmd.push(function () {
+            googletag.display("desktop-interstitial");
+          });
+        </script>
+      </div>
+      <div
+        class="cl-interstitial"
+        data-container-ad-unit-id="cl-interstitial"
+      ></div>
+    </div>
+    <hr />
+    <h2>Mobile (< 768px)</h2>
+    <div>
+      <h3>Inline Mobile 1</h3>
+      <div id="inline-mobile1">
+        <script>
+          googletag.cmd.push(function () {
+            googletag.display("inline-mobile1");
+          });
+        </script>
+      </div>
+    </div>
+    <div>
+      <h3>Inline Mobile 2</h3>
+      <div id="inline-mobile2">
+        <script>
+          googletag.cmd.push(function () {
+            googletag.display("inline-mobile2");
+          });
+        </script>
+      </div>
+    </div>
+    <div>
+      <h3>Inline Mobile 3</h3>
+      <div id="inline-mobile3">
+        <script>
+          googletag.cmd.push(function () {
+            googletag.display("inline-mobile3");
+          });
+        </script>
+      </div>
+    </div>
+    <div>
+      <h3>Inline Mobile 4</h3>
+      <div id="inline-mobile4">
+        <script>
+          googletag.cmd.push(function () {
+            googletag.display("inline-mobile4");
+          });
+        </script>
+      </div>
+    </div>
+    <div>
+      <h3>BTF Mobile</h3>
+      <div id="btf-mobile">
+        <script>
+          googletag.cmd.push(function () {
+            googletag.display("btf-mobile");
+          });
+        </script>
+      </div>
+    </div>
+    <div>
+      <h3>Mobile Adhesion</h3>
+      <div id="banner-bottom" class="">
+        <script>
+          googletag.cmd.push(function () {
+            googletag.display("banner-bottom");
+          });
+        </script>
+      </div>
+      <div
+        data-container-ad-unit-id="mobile-adhesion"
+        id="mobile-adhesion"
+      ></div>
+    </div>
+  </body>
+</html>
