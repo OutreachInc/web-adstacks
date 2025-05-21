@@ -401,7 +401,7 @@ var adSpots = {
     max: 9999,
     gam: {
       unit: "/5500201/cl_desktop_inline4",
-      sizes: [[300, 600]],
+      sizes: [[300, 250]],
       code: "inline-desktop4",
     },
     a9: true,
@@ -409,7 +409,7 @@ var adSpots = {
       code: "inline-desktop4",
       mediaTypes: {
         banner: {
-          sizes: [[300, 600]],
+          sizes: [[300, 250]],
         },
       },
       bids: [ix("959604"), rubicon("743338"), sovrn("1119233")],
@@ -439,7 +439,7 @@ var adSpots = {
     max: 9999,
     gam: {
       unit: "/5500201/cl_desktop_inline6",
-      sizes: [[300, 600]],
+      sizes: [[300, 250]],
       code: "inline-desktop6",
     },
     a9: true,
@@ -447,7 +447,7 @@ var adSpots = {
       code: "inline-desktop6",
       mediaTypes: {
         banner: {
-          sizes: [300, 600],
+          sizes: [300, 250],
         },
       },
       bids: [ix("959606"), rubicon("2807678"), sovrn("1119235")],
