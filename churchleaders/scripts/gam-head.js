@@ -88,6 +88,8 @@ async function getGeoAndApiResponse() {
 }
 
 getGeoAndApiResponse().then(() => {
+  addInfiniteScrollingAds();
+
   pbjs.que.push(function () {
     pbjs.setConfig({
       priceGranularity: "dense",
@@ -800,8 +802,9 @@ function startAds() {
 
 function adRefresh(adSpot) {
   setInterval(() => {
-    let ad = document.getElementById(adSpot.gam.code).getBoundingClientRect();
+    let ad = document.getElementById(adSpot.gam.code)?.getBoundingClientRect();
     if (
+      ad &&
       !document.hidden &&
       adSpot.refreshable !== false &&
       ad.bottom >= 0 &&
@@ -866,4 +869,87 @@ function limitMobileAdhesion() {
   ) {
     delete adSpots.mobileAdhesion;
   }
+}
+
+function addInfiniteScrollingAds() {
+  // Define the main content container using the selector you provided
+  const container = document.querySelector(".cl-post-content > div");
+
+  if (!container) {
+    alert("no container found");
+    console.error("Content container not found.");
+    return;
+  }
+
+  // Get all paragraph tags inside the container
+  const paragraphs = container.querySelectorAll("p");
+
+  // Loop through the paragraphs and insert a div after every third one
+  paragraphs.forEach((p, index) => {
+    if (index > 8 && index % 3 === 2) {
+      const newDiv = document.createElement("div");
+      let innerHTML = `<div id="infinite_${index}_left" class="scroll-ad"></div>
+      `;
+
+      if (window.innerWidth >= 654) {
+        innerHTML += `<div id="infinite_${index}_right" class="scroll-ad"></div>`;
+
+        adSpots["infinite_" + index + "_right"] = {
+          min: 654,
+          max: 9999,
+          gam: {
+            code: `infinite_${index}_right`,
+            unit: "/5500201/cl_article_infinite_scroll_2",
+            sizes: [[300, 250]],
+          },
+        };
+
+        if (
+          adSpots["infinite_" + index + "_right"].gam !== undefined &&
+          adSpots["infinite_" + index + "_right"].min <= window.innerWidth &&
+          adSpots["infinite_" + index + "_right"].max >= window.innerWidth
+        ) {
+          gamSlots[adSpots["infinite_" + index + "_right"].gam.code] = googletag
+            .defineSlot(
+              adSpots["infinite_" + index + "_right"].gam.unit,
+              adSpots["infinite_" + index + "_right"].gam.sizes,
+              adSpots["infinite_" + index + "_right"].gam.code
+            )
+            .addService(googletag.pubads());
+        }
+      }
+
+      adSpots["infinite_" + index + "_left"] = {
+        min: 0,
+        max: 9999,
+        gam: {
+          code: `infinite_${index}_left`,
+          unit: "/5500201/cl_article_infinite_scroll_1",
+          sizes: [[300, 250]],
+        },
+      };
+
+      if (
+        adSpots["infinite_" + index + "_left"].gam !== undefined &&
+        adSpots["infinite_" + index + "_left"].min <= window.innerWidth &&
+        adSpots["infinite_" + index + "_left"].max >= window.innerWidth
+      ) {
+        gamSlots[adSpots["infinite_" + index + "_left"].gam.code] = googletag
+          .defineSlot(
+            adSpots["infinite_" + index + "_left"].gam.unit,
+            adSpots["infinite_" + index + "_left"].gam.sizes,
+            adSpots["infinite_" + index + "_left"].gam.code
+          )
+          .addService(googletag.pubads());
+      }
+
+      newDiv.innerHTML = innerHTML;
+      newDiv.style.margin = "20px 0";
+      newDiv.style.display = "flex";
+      newDiv.style.flexWrap = "wrap";
+      newDiv.style.justifyContent = "space-around";
+
+      p.parentNode.insertBefore(newDiv, p.nextSibling);
+    }
+  });
 }
