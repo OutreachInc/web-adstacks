@@ -876,8 +876,7 @@ function addInfiniteScrollingAds() {
   const container = document.querySelector(".cl-post-content > div");
 
   if (!container) {
-    alert("no container found");
-    console.error("Content container not found.");
+    console.log("Content container not found.");
     return;
   }
 
