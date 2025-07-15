@@ -1,154 +1,709 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ChurchLeaders Ad Units</title>
     <script>
-        var googletag = googletag || {};
-        googletag.cmd = googletag.cmd || [];
-        var author = null;
-        var advid = null;
+      var googletag = googletag || {};
+      googletag.cmd = googletag.cmd || [];
+      var author = null;
+      var advid = null;
     </script>
     <script src="https://www.googletagservices.com/tag/js/gpt.js"></script>
     <script src="/churchleaders/scripts/prebid.min.js" async></script>
     <script src="/churchleaders/scripts/gam-head.js"></script>
-</head>
-<body>
+  </head>
+  <body>
     <h1>ChurchLeaders Ad Stack</h1>
     <h2>Desktop</h2>
     <div>
-        <h3>Desktop Billboard</h3>
-        <div id="desktop-billboard" class="horizontal-ad-970x250">
-            <script>googletag.cmd.push(function () { googletag.display('desktop-billboard'); });</script>
-        </div>
+      <h3>Desktop Billboard</h3>
+      <div id="desktop-billboard" class="horizontal-ad-970x250">
+        <script>
+          googletag.cmd.push(function () {
+            googletag.display("desktop-billboard");
+          });
+        </script>
+      </div>
     </div>
     <div>
-        <h3>Right Rail</h3>
-        <div id="right-rail" class="horizontal-ad-970x250">
-            <script>googletag.cmd.push(function () { googletag.display('right-rail'); });</script>
-        </div>
+      <h3>Right Rail</h3>
+      <div id="right-rail" class="horizontal-ad-970x250">
+        <script>
+          googletag.cmd.push(function () {
+            googletag.display("right-rail");
+          });
+        </script>
+      </div>
     </div>
     <div>
-        <h3>Desktop Showcase</h3>
-        <div id="desktop-showcase-300x250">
-            <script>googletag.cmd.push(function () { googletag.display('desktop-showcase-300x250'); });</script>
-        </div>
+      <h3>Desktop Showcase</h3>
+      <div id="desktop-showcase-300x250">
+        <script>
+          googletag.cmd.push(function () {
+            googletag.display("desktop-showcase-300x250");
+          });
+        </script>
+      </div>
     </div>
     <div>
-        <h3>Inline Desktop 3</h3>
-        <div id="inline-desktop3" class="vertical-ad-300x250">
-            <script>googletag.cmd.push(function () { googletag.display('inline-desktop3'); });</script>
-        </div>
+      <h3>Inline Desktop 3</h3>
+      <div id="inline-desktop3" class="vertical-ad-300x250">
+        <script>
+          googletag.cmd.push(function () {
+            googletag.display("inline-desktop3");
+          });
+        </script>
+      </div>
     </div>
     <div>
-        <h3>Inline Desktop 4</h3>
-        <div id="inline-desktop4">
-            <script>googletag.cmd.push(function () { googletag.display('inline-desktop4'); });</script>
-        </div>
+      <h3>Inline Desktop 4</h3>
+      <div id="inline-desktop4">
+        <script>
+          googletag.cmd.push(function () {
+            googletag.display("inline-desktop4");
+          });
+        </script>
+      </div>
     </div>
     <div>
-        <h3>Inline Desktop 5</h3>
-        <div id="inline-desktop5">
-            <script>googletag.cmd.push(function () { googletag.display('inline-desktop5'); });</script>
-        </div>
+      <h3>Inline Desktop 5</h3>
+      <div id="inline-desktop5">
+        <script>
+          googletag.cmd.push(function () {
+            googletag.display("inline-desktop5");
+          });
+        </script>
+      </div>
     </div>
     <div>
-        <h3>Inline Desktop 6</h3>
-        <div id="inline-desktop6">
-            <script>googletag.cmd.push(function () { googletag.display('inline-desktop6'); });</script>
-        </div>
+      <h3>Inline Desktop 6</h3>
+      <div id="inline-desktop6">
+        <script>
+          googletag.cmd.push(function () {
+            googletag.display("inline-desktop6");
+          });
+        </script>
+      </div>
     </div>
     <div>
-        <h3>Inline Desktop 7</h3>
-        <div id="inline-desktop7">
-            <script>googletag.cmd.push(function () { googletag.display('inline-desktop7'); });</script>
-        </div>
+      <h3>Inline Desktop 7</h3>
+      <div id="inline-desktop7">
+        <script>
+          googletag.cmd.push(function () {
+            googletag.display("inline-desktop7");
+          });
+        </script>
+      </div>
     </div>
     <div>
-        <h3>Interstitial</h3>
-        <div id="desktop-interstitial">
-            <script>
-                googletag.cmd.push(function () { googletag.display('desktop-interstitial'); });
-            </script>
-        </div>
-        <div class="cl-interstitial" data-container-ad-unit-id="cl-interstitial"></div>
+      <h3>Interstitial</h3>
+      <div id="desktop-interstitial">
+        <script>
+          googletag.cmd.push(function () {
+            googletag.display("desktop-interstitial");
+          });
+        </script>
+      </div>
+      <div
+        class="cl-interstitial"
+        data-container-ad-unit-id="cl-interstitial"
+      ></div>
     </div>
     <hr />
     <h2>Mobile (< 768px)</h2>
     <div>
-        <h3>Inline Mobile 1</h3>
-        <div id="inline-mobile1">
-            <script>
-                googletag.cmd.push(function () { googletag.display('inline-mobile1'); });
-            </script>
-        </div>
+      <h3>Inline Mobile 1</h3>
+      <div id="inline-mobile1">
+        <script>
+          googletag.cmd.push(function () {
+            googletag.display("inline-mobile1");
+          });
+        </script>
+      </div>
     </div>
     <div>
-        <h3>Inline Mobile 2</h3>
-        <div id="inline-mobile2">
-            <script>
-                googletag.cmd.push(function () { googletag.display('inline-mobile2'); });
-            </script>
-        </div>
+      <h3>Inline Mobile 2</h3>
+      <div id="inline-mobile2">
+        <script>
+          googletag.cmd.push(function () {
+            googletag.display("inline-mobile2");
+          });
+        </script>
+      </div>
     </div>
     <div>
-        <h3>Inline Mobile 3</h3>
-        <div id="inline-mobile3">
-            <script>
-                googletag.cmd.push(function () { googletag.display('inline-mobile3'); });
-            </script>
-        </div>
+      <h3>Inline Mobile 3</h3>
+      <div id="inline-mobile3">
+        <script>
+          googletag.cmd.push(function () {
+            googletag.display("inline-mobile3");
+          });
+        </script>
+      </div>
     </div>
     <div>
-        <h3>Inline Mobile 4</h3>
-        <div id="inline-mobile4">
-            <script>
-                googletag.cmd.push(function () { googletag.display('inline-mobile4'); });
-            </script>
-        </div>
+      <h3>Inline Mobile 4</h3>
+      <div id="inline-mobile4">
+        <script>
+          googletag.cmd.push(function () {
+            googletag.display("inline-mobile4");
+          });
+        </script>
+      </div>
     </div>
     <div>
-        <h3>Inline Mobile 5</h3>
-        <div id="inline-mobile5">
-            <script>
-                googletag.cmd.push(function () { googletag.display('inline-mobile5'); });
-            </script>
-        </div>
+      <h3>Inline Mobile 5</h3>
+      <div id="inline-mobile5">
+        <script>
+          googletag.cmd.push(function () {
+            googletag.display("inline-mobile5");
+          });
+        </script>
+      </div>
     </div>
     <div>
-        <h3>Inline Mobile 6</h3>
-        <div id="inline-mobile6">
-            <script>
-                googletag.cmd.push(function () { googletag.display('inline-mobile6'); });
-            </script>
-        </div>
+      <h3>Inline Mobile 6</h3>
+      <div id="inline-mobile6">
+        <script>
+          googletag.cmd.push(function () {
+            googletag.display("inline-mobile6");
+          });
+        </script>
+      </div>
     </div>
     <div>
-        <h3>Inline Mobile 7</h3>
-        <div id="inline-mobile7">
-            <script>
-                googletag.cmd.push(function () { googletag.display('inline-mobile7'); });
-            </script>
-        </div>
+      <h3>Inline Mobile 7</h3>
+      <div id="inline-mobile7">
+        <script>
+          googletag.cmd.push(function () {
+            googletag.display("inline-mobile7");
+          });
+        </script>
+      </div>
     </div>
     <div>
-        <h3>BTF Mobile</h3>
-        <div id="btf-mobile">
-            <script>
-                googletag.cmd.push(function () { googletag.display('btf-mobile'); });
-            </script>
-        </div>
+      <h3>BTF Mobile</h3>
+      <div id="btf-mobile">
+        <script>
+          googletag.cmd.push(function () {
+            googletag.display("btf-mobile");
+          });
+        </script>
+      </div>
     </div>
     <div>
-        <h3>Mobile Adhesion</h3>
-        <div id="banner-bottom" class="">
-            <script>
-                googletag.cmd.push(function () { googletag.display('banner-bottom'); });
-            </script>
-        </div>
-        <div data-container-ad-unit-id="mobile-adhesion" id="mobile-adhesion"></div>
+      <h3>Mobile Adhesion</h3>
+      <div id="banner-bottom" class="">
+        <script>
+          googletag.cmd.push(function () {
+            googletag.display("banner-bottom");
+          });
+        </script>
+      </div>
+      <div
+        data-container-ad-unit-id="mobile-adhesion"
+        id="mobile-adhesion"
+      ></div>
     </div>
-</body>
+
+    <div
+      class="td_block_wrap tdb_single_content tdi_63 td-pb-border-top cl-post-content td_block_template_1 td-post-content tagdiv-type"
+      data-td-block-uid="tdi_63"
+    >
+      <style>
+        .tdi_63 {
+          margin-top: 0px !important;
+          margin-right: 0.25rem !important;
+          margin-bottom: 0px !important;
+          margin-left: 0.1rem !important;
+          padding-right: 0.25rem !important;
+          padding-left: 0.25rem !important;
+        }
+      </style>
+      <style>
+        .tdb_single_content {
+          margin-bottom: 0;
+          *zoom: 1;
+        }
+        .tdb_single_content:before,
+        .tdb_single_content:after {
+          display: table;
+          content: "";
+          line-height: 0;
+        }
+        .tdb_single_content:after {
+          clear: both;
+        }
+        .tdb_single_content
+          .tdb-block-inner
+          > *:not(.wp-block-quote):not(.alignwide):not(
+            .alignfull.wp-block-cover.has-parallax
+          ):not(.td-a-ad) {
+          margin-left: auto;
+          margin-right: auto;
+        }
+        .tdb_single_content a {
+          pointer-events: auto;
+        }
+        .tdb_single_content .td-spot-id-top_ad .tdc-placeholder-title:before {
+          content: "Article Top Ad" !important;
+        }
+        .tdb_single_content
+          .td-spot-id-inline_ad0
+          .tdc-placeholder-title:before {
+          content: "Article Inline Ad 1" !important;
+        }
+        .tdb_single_content
+          .td-spot-id-inline_ad1
+          .tdc-placeholder-title:before {
+          content: "Article Inline Ad 2" !important;
+        }
+        .tdb_single_content
+          .td-spot-id-inline_ad2
+          .tdc-placeholder-title:before {
+          content: "Article Inline Ad 3" !important;
+        }
+        .tdb_single_content
+          .td-spot-id-bottom_ad
+          .tdc-placeholder-title:before {
+          content: "Article Bottom Ad" !important;
+        }
+        .tdb_single_content .id_top_ad,
+        .tdb_single_content .id_bottom_ad {
+          clear: both;
+          margin-bottom: 21px;
+          text-align: center;
+        }
+        .tdb_single_content .id_top_ad img,
+        .tdb_single_content .id_bottom_ad img {
+          margin-bottom: 0;
+        }
+        .tdb_single_content .id_top_ad .adsbygoogle,
+        .tdb_single_content .id_bottom_ad .adsbygoogle {
+          position: relative;
+        }
+        .tdb_single_content .id_ad_content-horiz-left,
+        .tdb_single_content .id_ad_content-horiz-right,
+        .tdb_single_content .id_ad_content-horiz-center {
+          margin-bottom: 15px;
+        }
+        .tdb_single_content .id_ad_content-horiz-left img,
+        .tdb_single_content .id_ad_content-horiz-right img,
+        .tdb_single_content .id_ad_content-horiz-center img {
+          margin-bottom: 0;
+        }
+        .tdb_single_content .id_ad_content-horiz-center {
+          text-align: center;
+        }
+        .tdb_single_content .id_ad_content-horiz-center img {
+          margin-right: auto;
+          margin-left: auto;
+        }
+        .tdb_single_content .id_ad_content-horiz-left {
+          float: left;
+          margin-top: 9px;
+          margin-right: 21px;
+        }
+        .tdb_single_content .id_ad_content-horiz-right {
+          float: right;
+          margin-top: 6px;
+          margin-left: 21px;
+        }
+        .tdb_single_content .tdc-a-ad .tdc-placeholder-title {
+          width: 300px;
+          height: 250px;
+        }
+        .tdb_single_content .tdc-a-ad .tdc-placeholder-title:before {
+          position: absolute;
+          top: 50%;
+          -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+          margin: auto;
+          display: table;
+          width: 100%;
+        }
+        .tdb_single_content .tdb-block-inner.td-fix-index {
+          word-break: break-word;
+        }
+        .tdi_63,
+        .tdi_63 > p,
+        .tdi_63 .tdb-block-inner > p {
+          font-family: var(--tt-secondary) !important;
+          font-size: 18px !important;
+          line-height: 1.8 !important;
+          font-weight: 400 !important;
+        }
+        .tdi_63 h1 {
+          font-family: var(--tt-primary-font) !important;
+          font-weight: 800 !important;
+        }
+        .tdi_63 h2 {
+          font-family: var(--tt-primary-font) !important;
+          font-weight: 800 !important;
+        }
+        .tdi_63 h3:not(.tds-locker-title) {
+          font-family: var(--tt-primary-font) !important;
+          font-weight: 800 !important;
+        }
+        .tdi_63 h4 {
+          font-family: var(--tt-primary-font) !important;
+          font-weight: 800 !important;
+        }
+        .tdi_63 h5 {
+          font-family: var(--tt-primary-font) !important;
+          font-weight: 800 !important;
+        }
+        .tdi_63 h6 {
+          font-family: var(--tt-primary-font) !important;
+          font-weight: 800 !important;
+        }
+        .tdi_63 li {
+          font-family: var(--tt-secondary) !important;
+          font-size: 18px !important;
+          font-weight: 400 !important;
+        }
+        .tdi_63 li:before {
+          margin-top: 1px;
+          line-height: 18px !important;
+        }
+        .tdi_63 .tdb-block-inner blockquote p {
+          font-family: var(--tt-primary-font) !important;
+          font-weight: 800 !important;
+          text-transform: none !important;
+          color: var(--tt-hover);
+        }
+        .tdi_63,
+        .tdi_63 p {
+          color: var(--tt-primary-color);
+        }
+        .tdi_63 h1,
+        .tdi_63 h2,
+        .tdi_63 h3:not(.tds-locker-title),
+        .tdi_63 h4,
+        .tdi_63 h5,
+        .tdi_63 h6 {
+          color: var(--tt-primary-color);
+        }
+        .tdi_63 .wp-caption-text,
+        .tdi_63 figcaption {
+          color: var(--tt-gray-dark);
+        }
+        .tdi_63 a:not(.wp-block-button__link) {
+          color: var(--tt-hover);
+        }
+        .tdi_63 a:not(.wp-block-button__link):hover {
+          color: var(--tt-accent-color);
+        }
+        .tdi_63 ul,
+        .tdi_63 ol {
+          color: var(--tt-primary-color);
+        }
+        .tdi_63 .page-nav a,
+        .tdi_63 .page-nav span,
+        .tdi_63 .page-nav > div {
+          font-size: 20px !important;
+          font-weight: 600 !important;
+        }
+        @media (max-width: 767px) {
+          .tdb_single_content .id_ad_content-horiz-left,
+          .tdb_single_content .id_ad_content-horiz-right,
+          .tdb_single_content .id_ad_content-horiz-center {
+            margin: 0 auto 26px auto;
+          }
+        }
+        @media (max-width: 767px) {
+          .tdb_single_content .id_ad_content-horiz-left {
+            margin-right: 0;
+          }
+        }
+        @media (max-width: 767px) {
+          .tdb_single_content .id_ad_content-horiz-right {
+            margin-left: 0;
+          }
+        }
+        @media (max-width: 767px) {
+          .tdb_single_content .td-a-ad {
+            float: none;
+            text-align: center;
+          }
+          .tdb_single_content .td-a-ad img {
+            margin-right: auto;
+            margin-left: auto;
+          }
+          .tdb_single_content .tdc-a-ad {
+            float: none;
+          }
+        }
+        @media (min-width: 768px) and (max-width: 1018px) {
+          .tdi_63,
+          .tdi_63 > p,
+          .tdi_63 .tdb-block-inner > p {
+            font-size: 16px !important;
+          }
+          .tdi_63 li {
+            font-size: 16px !important;
+          }
+          .tdi_63 li:before {
+            margin-top: 1px;
+            line-height: 16px !important;
+          }
+        }
+        @media (max-width: 767px) {
+          .tdi_63,
+          .tdi_63 > p,
+          .tdi_63 .tdb-block-inner > p {
+            font-size: 16px !important;
+          }
+          .tdi_63 li {
+            font-size: 16px !important;
+          }
+          .tdi_63 li:before {
+            margin-top: 1px;
+            line-height: 16px !important;
+          }
+          .tdi_63 .tdb-block-inner blockquote p {
+            font-size: 30px !important;
+          }
+        }
+      </style>
+      <div class="tdb-block-inner td-fix-index">
+        <h3 id="theological-foundations"><b>Theological Foundations</b></h3>
+        <p>
+          Some contend that sexuality and gender identity aren’t essential,
+          because they aren’t included in the ancient creeds. This point
+          actually enhances rather than detracts from historic Christian views
+          of sexuality. The church developed the ecumenical creeds and
+          statements of faith such as the Apostles’ Creed, the Nicene Creed, the
+          Athanasian Creed, and the Chalcedonian definition to settle matters of
+          disagreement over trinitarian and Christological doctrine. But the
+          church never disagreed about sexual ethics the way we define them
+          today.
+        </p>
+        <p>
+          Moreover, long before the creeds, God made His design for human
+          relationships clear. In Genesis 1:26-28, God created humanity first in
+          his very image, unique among all God created. Further, he created
+          humanity in his image as both male and female, commanding them to be
+          fruitful and multiply. In Genesis 2, he formed Eve as a companion to
+          Adam and a co-laborer with him. In Genesis 2:24 God established in the
+          very beginning his plan for marriage between a man and a woman. These
+          creation accounts set the theological foundation for understanding
+          God’s purposes for gender, marriage, and sexuality.
+        </p>
+        <p>
+          Jesus affirms this pattern in Matthew 19:4-6, grounding his teaching
+          on marriage by quoting Genesis 2:24. Paul echoes the same foundation
+          in Ephesians 5, where the union of husband and wife becomes a living
+          picture of Christ and the church. These texts aren’t peripheral.
+          They’re central to our understanding of who we are and what we’re
+          created for.
+        </p>
+        <div id="store-item-ad">
+          <div
+            style="
+              clear: both;
+              width: 100%;
+              margin-bottom: 25px;
+              text-align: center;
+              padding-top: 30px;
+              padding-bottom: 30px;
+              border: 2px #ebebeb dashed;
+              border-radius: 5px;
+              border-right: none;
+              border-left: none;
+              position: relative;
+            "
+          >
+            <a
+              href="https://shop.churchleaders.com/products/christian-leader-collector-set-bundle?iad=christian-leader-collector-set"
+              style="
+                display: block;
+                margin: 0px auto;
+                width: 100%;
+                max-width: 350px;
+              "
+              ><img
+                src="https://shop.churchleaders.com/cdn/shop/files/EnduringFaithSeries-Product-Image-10pack-2rows_1100x.png?v=1705100622"
+                alt="Christian Leader Collector Set Thumbnail"
+                data-pin-nopin="no"
+                style="width: 100%; display: block; margin: 0 auto"
+                class="td-animation-stack-type0-2"
+              /><span
+                class="adCTAbtn"
+                style="
+                  font-weight: bold;
+                  background: #e63e3e;
+                  background-image: -webkit-linear-gradient(
+                    top,
+                    #e63e3e,
+                    #941212
+                  );
+                  background-image: -moz-linear-gradient(top, #e63e3e, #941212);
+                  background-image: -ms-linear-gradient(top, #e63e3e, #941212);
+                  background-image: -o-linear-gradient(top, #e63e3e, #941212);
+                  background-image: linear-gradient(
+                    to bottom,
+                    #e63e3e,
+                    #941212
+                  );
+                  -webkit-border-radius: 10;
+                  -moz-border-radius: 10;
+                  border-radius: 10px;
+                  color: #ffffff;
+                  font-size: 16px;
+                  padding: 10px 20px 10px 20px;
+                  text-decoration: none;
+                  margin-top: 10px;
+                  display: inline-block;
+                  text-transform: uppercase;
+                  font-family: 'Open Sans';
+                "
+                >Sale Today</span
+              ><span
+                style="
+                  position: absolute;
+                  top: 45%;
+                  right: 50%;
+                  color: #505050;
+                  background: #fff;
+                  padding: 13px 10px;
+                  border-radius: 50px;
+                  font-size: 0.65rem;
+                  font-weight: 600;
+                  text-align: center;
+                  border: 0.5px #911111 solid;
+                  transform: rotate(2deg);
+                  margin: -25% -29% 0 0;
+                "
+                ><strike
+                  style="
+                    color: indianred;
+                    font-weight: 100;
+                    display: block;
+                    margin-bottom: -3px;
+                  "
+                  >$149.99</strike
+                >$75</span
+              ></a
+            >
+          </div>
+        </div>
+        <p>
+          Our theology must begin with God’s design, not with cultural trends or
+          theological revisionism. To say sex and gender are
+          <em>adiaphora</em> where we can “agree to disagree” ignores
+          Scripture’s clarity and the church’s witness, thereby missing the very
+          heart of God’s intent for human flourishing.
+        </p>
+        <h3 id="what-makes-this-different">
+          <b>What Makes This Different?</b>
+        </h3>
+        <p>
+          Unlike disagreements over baptism or spiritual gifts—where all sides
+          appeal to Scripture and its authority, and where we find disagreement
+          and debate throughout church history—the affirming position requires a
+          hermeneutic that ultimately disregards Scripture’s clear teaching and
+          a rejection of the historic church’s consensus. There is no path to
+          affirming same-sex marriage, for instance, that passes through Romans
+          1 without diminishing the authority or integrity of the text.
+        </p>
+        <p>
+          Evangelical theology begins with Scripture as authoritative and
+          sufficient. Rejecting historic Christian views of sexuality requires
+          deep rejection or revision of the Bible itself.
+        </p>
+        <p>Thus, we can’t simply “agree to disagree.”</p>
+        <h2 id="institutions-matter"><b>Institutions Matter</b></h2>
+        <p>
+          We have repeatedly seen institutions attempt to move sexuality into
+          the “agree to disagree” category, only for that position to lead to
+          more departures from sound biblical teaching and disunity. Progressive
+          views of sexuality are often framed as efforts to avoid division, but
+          they tend to displace orthodoxy rather than to accommodate it.
+        </p>
+        <p>
+          Now, what happened in mainline denominations is happening to a handful
+          of evangelical organizations of different kinds. And, evangelicalism
+          is, in some ways, an interconnected community of institutions. So,
+          those institutions matter.
+        </p>
+        <p>
+          Furthermore, it matters that institutions have consistency in what
+          they believe—and also what they require.&nbsp;As such, moves to claim
+          that heterodox views are also “faithful” are clearly a step away from
+          biblical truth. It’s not a step toward Christian unity, but an
+          unhelpful compromise and a move away from biblical truth.
+        </p>
+        <p>
+          It’s not something on which we agree to disagree, rather it’s
+          something where Christians—and Christian institutions—need to be
+          clear.
+        </p>
+        <p>
+          Faithful Christians must be clear on where we stand. Clarity is not
+          cruelty. And affirming the truth does not preclude love. On the
+          contrary, truth is what makes love possible.
+        </p>
+        <p>
+          Institutions also matter, because drift sends confusing signals to the
+          broader evangelical community. It matters that when institutions
+          declare themselves evangelical that this includes a commitment to
+          biblical authority—including the biblical teaching about sexuality.
+        </p>
+        <h3 id="conclusion"><b>Conclusion</b></h3>
+        <p>
+          Holding an orthodox view of sexuality doesn’t mean we stop listening,
+          loving, or walking patiently with others. But it does mean that we
+          must begin in a different place. We must speak with clarity. We cannot
+          affirm what scripture calls sin and we cannot reject its clear
+          teaching. “Agreeing to disagree” ultimately does both. It confuses
+          categories that Scripture makes clear.
+        </p>
+        <p>
+          When World Vision tried to adopt a neutral position on same-sex
+          marriage, the evangelical community responded strongly and negatively.
+          Ultimately, the organization reversed course. As then-president of
+          World Vision Rich Stearns later explained regarding biblical teaching
+          on marriage, “Certain beliefs…
+          <a
+            href="https://religionnews.com/transmission/world-vision-evangelicals-debate-boundaries-sexuality/"
+            >are so core to our Trinitarian stance</a
+          >” that they render neutrality impossible.
+        </p>
+        <p>Rich Stearns was right then, and it’s still true now.</p>
+        <p>
+          We need this kind of conviction—not just from churches, ministries,
+          and seminaries, but also from every Christian seeking to live
+          faithfully in a confused world. Truth and love are not enemies. They
+          are allies. And if we truly love our neighbors, we must be clear about
+          the truth rather than throwing up our hands and saying, “Let’s agree
+          to disagree.”
+        </p>
+        <p>
+          And, while standing firm on truth is not the easiest path, faithful
+          Christians choose the biblical path.
+        </p>
+        <footer>
+          <div class="page-nav page-nav-post td-pb-padding-side">
+            <a
+              href="https://churchleaders.com/voices/512232-agree-to-disagree-christian-sexuality-gender.html"
+              class="post-page-numbers"
+              ><div><i class="td-icon-menu-left"></i></div
+            ></a>
+            <a
+              href="https://churchleaders.com/voices/512232-agree-to-disagree-christian-sexuality-gender.html"
+              class="post-page-numbers"
+              ><div>1</div></a
+            >
+            <span class="post-page-numbers current" aria-current="page"
+              ><div>2</div></span
+            >
+          </div>
+        </footer>
+      </div>
+    </div>
+  </body>
 </html>
