@@ -885,7 +885,7 @@ function addInfiniteScrollingAds() {
 
   // Loop through the paragraphs and insert a div after every third one
   paragraphs.forEach((p, index) => {
-    if (index > 8 && index % 3 === 2) {
+    if (index > 8 && index % 4 === 3) {
       const newDiv = document.createElement("div");
       let innerHTML = `<div id="infinite_${index}_left" class="scroll-ad"></div>
       `;
