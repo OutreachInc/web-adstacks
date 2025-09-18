@@ -883,63 +883,76 @@ function addInfiniteScrollingAds() {
   // Get all paragraph tags inside the container
   const paragraphs = container.querySelectorAll("p");
 
+  // Helper to define and fire ad when in view
+  function fireInfiniteAd(adKey) {
+    const adSpot = adSpots[adKey];
+    if (!adSpot || !adSpot.gam) return;
+    // Only define slot if not already defined
+    if (!gamSlots[adSpot.gam.code]) {
+      gamSlots[adSpot.gam.code] = googletag
+        .defineSlot(adSpot.gam.unit, adSpot.gam.sizes, adSpot.gam.code)
+        .addService(googletag.pubads());
+    }
+    googletag.display(adSpot.gam.code);
+    executeBidding([adSpot]);
+  }
+
+  // Keep track of which ads have fired
+  const firedAds = new Set();
+
+  // Intersection Observer setup
+  const observer = new window.IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const adKey = entry.target.getAttribute("data-ad-key");
+          if (adKey && !firedAds.has(adKey)) {
+            fireInfiniteAd(adKey);
+            firedAds.add(adKey);
+            observer.unobserve(entry.target);
+          }
+        }
+      });
+    },
+    {
+      root: null,
+      rootMargin: "100px",
+      threshold: 0.1,
+    }
+  );
+
   // Loop through the paragraphs and insert a div after every third one
   paragraphs.forEach((p, index) => {
     if (index > 8 && index % 4 === 3) {
       const newDiv = document.createElement("div");
-      let innerHTML = `<div id="infinite_${index}_left" class="scroll-ad"></div>
-      `;
+      let innerHTML = "";
 
-      if (window.innerWidth >= 654) {
-        innerHTML += `<div id="infinite_${index}_right" class="scroll-ad"></div>`;
-
-        adSpots["infinite_" + index + "_right"] = {
-          min: 654,
-          max: 9999,
-          gam: {
-            code: `infinite_${index}_right`,
-            unit: "/5500201/cl_article_infinite_scroll_2",
-            sizes: [[300, 250]],
-          },
-        };
-
-        if (
-          adSpots["infinite_" + index + "_right"].gam !== undefined &&
-          adSpots["infinite_" + index + "_right"].min <= window.innerWidth &&
-          adSpots["infinite_" + index + "_right"].max >= window.innerWidth
-        ) {
-          gamSlots[adSpots["infinite_" + index + "_right"].gam.code] = googletag
-            .defineSlot(
-              adSpots["infinite_" + index + "_right"].gam.unit,
-              adSpots["infinite_" + index + "_right"].gam.sizes,
-              adSpots["infinite_" + index + "_right"].gam.code
-            )
-            .addService(googletag.pubads());
-        }
-      }
-
-      adSpots["infinite_" + index + "_left"] = {
+      // Left ad
+      const leftKey = `infinite_${index}_left`;
+      innerHTML += `<div id="${leftKey}" class="scroll-ad" data-ad-key="${leftKey}"></div>`;
+      adSpots[leftKey] = {
         min: 0,
         max: 9999,
         gam: {
-          code: `infinite_${index}_left`,
+          code: leftKey,
           unit: "/5500201/cl_article_infinite_scroll_1",
           sizes: [[300, 250]],
         },
       };
 
-      if (
-        adSpots["infinite_" + index + "_left"].gam !== undefined &&
-        adSpots["infinite_" + index + "_left"].min <= window.innerWidth &&
-        adSpots["infinite_" + index + "_left"].max >= window.innerWidth
-      ) {
-        gamSlots[adSpots["infinite_" + index + "_left"].gam.code] = googletag
-          .defineSlot(
-            adSpots["infinite_" + index + "_left"].gam.unit,
-            adSpots["infinite_" + index + "_left"].gam.sizes,
-            adSpots["infinite_" + index + "_left"].gam.code
-          )
-          .addService(googletag.pubads());
+      // Right ad (desktop)
+      if (window.innerWidth >= 654) {
+        const rightKey = `infinite_${index}_right`;
+        innerHTML += `<div id="${rightKey}" class="scroll-ad" data-ad-key="${rightKey}"></div>`;
+        adSpots[rightKey] = {
+          min: 654,
+          max: 9999,
+          gam: {
+            code: rightKey,
+            unit: "/5500201/cl_article_infinite_scroll_2",
+            sizes: [[300, 250]],
+          },
+        };
       }
 
       newDiv.innerHTML = innerHTML;
@@ -949,6 +962,13 @@ function addInfiniteScrollingAds() {
       newDiv.style.justifyContent = "space-around";
 
       p.parentNode.insertBefore(newDiv, p.nextSibling);
+
+      // Observe each ad div for visibility
+      Array.from(newDiv.children).forEach((adDiv) => {
+        if (adDiv.classList.contains("scroll-ad")) {
+          observer.observe(adDiv);
+        }
+      });
     }
   });
 }
