@@ -13,6 +13,11 @@ mix
     false
   )
   .minify(
+    "churchleaders/scripts/gam-head-simple.js",
+    "churchleaders/dist/gam-head-simple.min.js",
+    false
+  )
+  .minify(
     "foreverymom/scripts/gam-head.js",
     "foreverymom/dist/gam-head.min.js",
     false
