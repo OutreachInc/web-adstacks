@@ -1,5 +1,6 @@
 {
     "/sermon-central/dist/gam-head.min.js": "/sermon-central/dist/gam-head.min.js",
+    "/sermon-central/dist/gam-head-simple.min.js": "/sermon-central/dist/gam-head-simple.min.js",
     "/faithit/dist/gam-head.min.js": "/faithit/dist/gam-head.min.js",
     "/churchleaders/dist/gam-head.min.js": "/churchleaders/dist/gam-head.min.js",
     "/churchleaders/dist/gam-head-simple.min.js": "/churchleaders/dist/gam-head-simple.min.js",

@@ -6,6 +6,11 @@ mix
     "sermon-central/dist/gam-head.min.js",
     false
   )
+  .minify(
+    "sermon-central/scripts/gam-head-simple.js",
+    "sermon-central/dist/gam-head-simple.min.js",
+    false
+  )
   .minify("faithit/scripts/gam-head.js", "faithit/dist/gam-head.min.js", false)
   .minify(
     "churchleaders/scripts/gam-head.js",
