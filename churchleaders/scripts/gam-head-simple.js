@@ -197,6 +197,7 @@ var adSpots = {
   billboard: {
     min: 970,
     max: 9999,
+    refreshable: false,
     gam: {
       unit: "/5500201/cl_desktop_billboard_970x250",
       sizes: [
